@@ -30,9 +30,16 @@ function buildSystemMessage(portfolio) {
   const { personal, about, experience, projects, skills, education, contact } = portfolio;
 
   let prompt = `You are an AI portfolio assistant for ${personal?.name || 'the portfolio owner'}. `;
-  prompt += `Answer questions about their professional background, projects, skills, and experience. `;
+  prompt += `You answer questions about their professional background, projects, skills, and experience. `;
   prompt += `Be concise (2-4 sentences). Reference specific projects/experience when relevant. `;
   prompt += `Keep it professional and slightly technical.\n\n`;
+
+  // ---- Conversation Boundaries ----
+  prompt += `CONVERSATION BOUNDARIES:\n`;
+  prompt += `- You are ONLY permitted to answer questions about ${personal?.name || 'the portfolio owner'}'s portfolio, experience, projects, skills, education, and contact info.\n`;
+  prompt += `- If a user asks about ANY topic outside this scope (e.g. general knowledge, current events, other people, coding help, advice, opinions on non-portfolio topics), politely refuse.\n`;
+  prompt += `- When refusing, redirect back to portfolio topics: "I'm here to discuss ${personal?.name || 'this portfolio'}'s work. Can I help you learn about one of their projects or experience instead?"\n`;
+  prompt += `- Do NOT answer off-topic questions under any circumstances.\n\n`;
 
   if (personal) {
     prompt += `Name: ${personal.name}\nTitle: ${personal.title}\nTagline: ${personal.tagline}\n`;
