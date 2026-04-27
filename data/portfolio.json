@@ -10,210 +10,86 @@
     "summary": "Full-stack developer with 6+ years of experience building scalable web applications, AI-powered tools, and developer platforms.",
     "bio": "I specialize in JavaScript/TypeScript ecosystems, Python for AI/ML pipelines, and cloud infrastructure on AWS/GCP. I'm passionate about the intersection of AI and web development, building tools that leverage LLMs and machine learning to create smarter user experiences."
   },
-  "experience": [
-    {
-      "role": "Senior Full Stack Developer",
-      "company": "Tech Innovations Inc.",
-      "duration": "2023 - Present",
-      "description": "Leading development of cloud-native applications using microservices architecture. Mentoring junior developers and driving technical decisions for scalability and performance.",
-      "highlights": [
-        "Architected and deployed a real-time data pipeline processing 10M+ events/day",
-        "Reduced deployment time by 70% with custom CI/CD automation",
-        "Led migration from monolith to microservices, improving uptime to 99.9%"
-      ],
-      "tech": [
-        "React",
-        "Node.js",
-        "Python",
-        "AWS",
-        "Docker",
-        "Kubernetes"
-      ]
-    },
-    {
-      "role": "Full Stack Developer",
-      "company": "Digital Solutions Co.",
-      "duration": "2021 - 2023",
-      "description": "Built and maintained multiple client-facing web applications. Implemented RESTful APIs and integrated third-party services for enhanced functionality.",
-      "highlights": [
-        "Built a real-time collaboration platform serving 50K+ users",
-        "Integrated Stripe payment processing handling $2M+ in transactions",
-        "Implemented comprehensive testing suite achieving 95% code coverage"
-      ],
-      "tech": [
-        "React",
-        "TypeScript",
-        "MongoDB",
-        "Stripe",
-        "Redis",
-        "GraphQL"
-      ]
-    },
-    {
-      "role": "Frontend Developer",
-      "company": "StartUp Studio",
-      "duration": "2019 - 2021",
-      "description": "Designed and developed responsive user interfaces for various startups. Collaborated with UX designers to create intuitive and accessible web experiences.",
-      "highlights": [
-        "Developed component library used across 5+ client projects",
-        "Improved Core Web Vitals scores by 45% through performance optimization",
-        "Mentored 3 junior developers through structured onboarding program"
-      ],
-      "tech": [
-        "React",
-        "Vue.js",
-        "Sass",
-        "Jest",
-        "Webpack"
-      ]
+  "experience": [{
+    "role": "Senior Full Stack Developer",
+    "company": "Tech Innovations Inc.",
+    "duration": "2023 - Present",
+    "description": "Leading development of cloud-native applications using microservices architecture. Mentoring junior developers and driving technical decisions for scalability and performance.",
+    "highlights": ["Architected and deployed a real-time data pipeline processing 10M+ events/day", "Reduced deployment time by 70% with custom CI/CD automation", "Led migration from monolith to microservices, improving uptime to 99.9%"],
+    "tech": ["React", "Node.js", "Python", "AWS", "Docker", "Kubernetes"]
+  }, {
+    "role": "Full Stack Developer",
+    "company": "Digital Solutions Co.",
+    "duration": "2021 - 2023",
+    "description": "Built and maintained multiple client-facing web applications. Implemented RESTful APIs and integrated third-party services for enhanced functionality.",
+    "highlights": ["Built a real-time collaboration platform serving 50K+ users", "Integrated Stripe payment processing handling $2M+ in transactions", "Implemented comprehensive testing suite achieving 95% code coverage"],
+    "tech": ["React", "TypeScript", "MongoDB", "Stripe", "Redis", "GraphQL"]
+  }, {
+    "role": "Frontend Developer",
+    "company": "StartUp Studio",
+    "duration": "2019 - 2021",
+    "description": "Designed and developed responsive user interfaces for various startups. Collaborated with UX designers to create intuitive and accessible web experiences.",
+    "highlights": ["Developed component library used across 5+ client projects", "Improved Core Web Vitals scores by 45% through performance optimization", "Mentored 3 junior developers through structured onboarding program"],
+    "tech": ["React", "Vue.js", "Sass", "Jest", "Webpack"]
+  }],
+  "projects": [{
+    "title": "AI-Powered Analytics Dashboard",
+    "tagline": "Real-time insights with machine learning",
+    "description": "Real-time data visualization platform with machine learning predictions and automated insights. Features customizable dashboards, anomaly detection, and predictive forecasting.",
+    "highlights": ["Built custom ML pipeline for anomaly detection", "Real-time streaming with WebSocket architecture", "Interactive D3.js visualizations with 60fps rendering"],
+    "tech": ["React", "Python", "TensorFlow", "D3.js", "WebSocket", "PostgreSQL"],
+    "featured": true,
+    "links": {
+      "live": null,
+      "github": null
     }
-  ],
-  "projects": [
-    {
-      "title": "AI-Powered Analytics Dashboard",
-      "tagline": "Real-time insights with machine learning",
-      "description": "Real-time data visualization platform with machine learning predictions and automated insights. Features customizable dashboards, anomaly detection, and predictive forecasting.",
-      "highlights": [
-        "Built custom ML pipeline for anomaly detection",
-        "Real-time streaming with WebSocket architecture",
-        "Interactive D3.js visualizations with 60fps rendering"
-      ],
-      "tech": [
-        "React",
-        "Python",
-        "TensorFlow",
-        "D3.js",
-        "WebSocket",
-        "PostgreSQL"
-      ],
-      "featured": true,
-      "links": {
-        "live": null,
-        "github": null
-      }
-    },
-    {
-      "title": "E-Commerce Platform",
-      "tagline": "Full-stack marketplace solution",
-      "description": "Full-stack marketplace with payment integration, inventory management, and seller dashboard. Supports multi-vendor operations with real-time inventory sync.",
-      "highlights": [
-        "Multi-vendor architecture with role-based access control",
-        "Real-time inventory management across 10K+ SKUs",
-        "Integrated Stripe Connect for marketplace payments"
-      ],
-      "tech": [
-        "Node.js",
-        "MongoDB",
-        "Stripe",
-        "React",
-        "Redis",
-        "Docker"
-      ],
-      "featured": true,
-      "links": {
-        "live": null,
-        "github": null
-      }
-    },
-    {
-      "title": "Mobile Fitness Tracker",
-      "tagline": "Cross-platform health & wellness app",
-      "description": "Cross-platform app for workout tracking, nutrition planning, and progress analytics. Features AI-powered workout recommendations and social features.",
-      "highlights": [
-        "AI-powered workout recommendation engine",
-        "Real-time sync across devices with offline support",
-        "Custom charting library for progress visualization"
-      ],
-      "tech": [
-        "React Native",
-        "Firebase",
-        "TensorFlow Lite",
-        "Charts",
-        "Node.js"
-      ],
-      "featured": false,
-      "links": {
-        "live": null,
-        "github": null
-      }
-    },
-    {
-      "title": "DevOps Automation Suite",
-      "tagline": "CI/CD pipeline automation toolkit",
-      "description": "CI/CD pipeline tools with automated testing, deployment, and monitoring capabilities. Features blue-green deployments, automated rollbacks, and Slack integrations.",
-      "highlights": [
-        "Automated blue-green deployment strategy",
-        "Custom monitoring dashboard with real-time alerts",
-        "Slack integration for deployment notifications"
-      ],
-      "tech": [
-        "Docker",
-        "Kubernetes",
-        "AWS",
-        "Terraform",
-        "GitHub Actions",
-        "Prometheus"
-      ],
-      "featured": false,
-      "links": {
-        "live": null,
-        "github": null
-      }
+  }, {
+    "title": "E-Commerce Platform",
+    "tagline": "Full-stack marketplace solution",
+    "description": "Full-stack marketplace with payment integration, inventory management, and seller dashboard. Supports multi-vendor operations with real-time inventory sync.",
+    "highlights": ["Multi-vendor architecture with role-based access control", "Real-time inventory management across 10K+ SKUs", "Integrated Stripe Connect for marketplace payments"],
+    "tech": ["Node.js", "MongoDB", "Stripe", "React", "Redis", "Docker"],
+    "featured": true,
+    "links": {
+      "live": null,
+      "github": null
     }
-  ],
+  }, {
+    "title": "Mobile Fitness Tracker",
+    "tagline": "Cross-platform health & wellness app",
+    "description": "Cross-platform app for workout tracking, nutrition planning, and progress analytics. Features AI-powered workout recommendations and social features.",
+    "highlights": ["AI-powered workout recommendation engine", "Real-time sync across devices with offline support", "Custom charting library for progress visualization"],
+    "tech": ["React Native", "Firebase", "TensorFlow Lite", "Charts", "Node.js"],
+    "featured": false,
+    "links": {
+      "live": null,
+      "github": null
+    }
+  }, {
+    "title": "DevOps Automation Suite",
+    "tagline": "CI/CD pipeline automation toolkit",
+    "description": "CI/CD pipeline tools with automated testing, deployment, and monitoring capabilities. Features blue-green deployments, automated rollbacks, and Slack integrations.",
+    "highlights": ["Automated blue-green deployment strategy", "Custom monitoring dashboard with real-time alerts", "Slack integration for deployment notifications"],
+    "tech": ["Docker", "Kubernetes", "AWS", "Terraform", "GitHub Actions", "Prometheus"],
+    "featured": false,
+    "links": {
+      "live": null,
+      "github": null
+    }
+  }],
   "skills": {
-    "languages": [
-      "JavaScript",
-      "TypeScript",
-      "Python",
-      "Go",
-      "SQL",
-      "HTML/CSS"
-    ],
-    "frameworks": [
-      "React",
-      "Vue.js",
-      "Node.js",
-      "Express",
-      "Next.js",
-      "FastAPI"
-    ],
-    "databases": [
-      "PostgreSQL",
-      "MongoDB",
-      "Redis",
-      "Elasticsearch",
-      "Firebase"
-    ],
-    "cloud": [
-      "AWS",
-      "GCP",
-      "Docker",
-      "Kubernetes",
-      "Terraform",
-      "GitHub Actions"
-    ],
-    "ai_ml": [
-      "TensorFlow",
-      "PyTorch",
-      "LangChain",
-      "OpenAI API",
-      "Hugging Face",
-      "RAG"
-    ]
+    "languages": ["JavaScript", "TypeScript", "Python", "Go", "SQL", "HTML/CSS"],
+    "frameworks": ["React", "Vue.js", "Node.js", "Express", "Next.js", "FastAPI"],
+    "databases": ["PostgreSQL", "MongoDB", "Redis", "Elasticsearch", "Firebase"],
+    "cloud": ["AWS", "GCP", "Docker", "Kubernetes", "Terraform", "GitHub Actions"],
+    "ai_ml": ["TensorFlow", "PyTorch", "LangChain", "OpenAI API", "Hugging Face", "RAG"]
   },
-  "education": [
-    {
-      "institution": "University of Technology",
-      "degree": "B.S. Computer Science",
-      "year": "2015 - 2019",
-      "achievements": [
-        "Dean's List - 4 consecutive semesters",
-        "Senior thesis on distributed systems optimization",
-        "Teaching assistant for Web Development and Algorithms courses"
-      ]
-    }
-  ],
+  "education": [{
+    "institution": "University of Technology",
+    "degree": "B.S. Computer Science",
+    "year": "2015 - 2019",
+    "achievements": ["Dean's List - 4 consecutive semesters", "Senior thesis on distributed systems optimization", "Teaching assistant for Web Development and Algorithms courses"]
+  }],
   "contact": {
     "email": "ryan@example.com",
     "github": "https://github.com/ryanjohnson",

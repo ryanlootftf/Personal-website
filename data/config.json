@@ -4,42 +4,29 @@
     "description": "AI-powered portfolio website with chat interface",
     "theme": "dark"
   },
-  "sections": [
-    {
-      "id": "hero",
-      "enabled": true
-    },
-    {
-      "id": "about",
-      "enabled": true
-    },
-    {
-      "id": "experience",
-      "enabled": true
-    },
-    {
-      "id": "projects",
-      "enabled": true
-    },
-    {
-      "id": "skills",
-      "enabled": true
-    },
-    {
-      "id": "education",
-      "enabled": true
-    },
-    {
-      "id": "contact",
-      "enabled": true
-    }
-  ],
-  "suggestedPrompts": [
-    "What projects have you worked on?",
-    "Tell me about your experience",
-    "What are your skills?",
-    "How can I contact you?"
-  ],
+  "sections": [{
+    "id": "hero",
+    "enabled": true
+  }, {
+    "id": "about",
+    "enabled": true
+  }, {
+    "id": "experience",
+    "enabled": true
+  }, {
+    "id": "projects",
+    "enabled": true
+  }, {
+    "id": "skills",
+    "enabled": true
+  }, {
+    "id": "education",
+    "enabled": true
+  }, {
+    "id": "contact",
+    "enabled": true
+  }],
+  "suggestedPrompts": ["What projects have you worked on?", "Tell me about your experience", "What are your skills?", "How can I contact you?"],
   "ai": {
     "model": "minimax/minimax-m2.5:free",
     "temperature": 0.7,
