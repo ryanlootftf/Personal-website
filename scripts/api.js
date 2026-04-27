@@ -87,16 +87,18 @@ export async function sendChatMessage(messages, portfolioData, configData) {
 
   // Phase 1: NVIDIA (3 attempts, retry only on timeout)
   for (let i = 1; i <= MAX_RETRIES; i++) {
+    console.log(`🔵 NVIDIA attempt ${i}/${MAX_RETRIES} starting...`);
     const result = await attemptProviderCall(baseBody, 'nvidia');
     if (result.success) {
+      console.log(`✅ NVIDIA attempt ${i}/${MAX_RETRIES} succeeded`);
       return result.response;
     }
     if (result.isProviderError) {
-      console.warn(`NVIDIA provider error (no retry): ${result.error}`);
+      console.error(`❌ NVIDIA attempt ${i}/${MAX_RETRIES} provider error (no retry): ${result.error}`);
       break; // real error → skip remaining NVIDIA attempts
     }
     // Timeout — retry with fresh Vercel invocation
-    console.log(`NVIDIA attempt ${i}/${MAX_RETRIES} timed out, retrying...`);
+    console.warn(`⏱  NVIDIA attempt ${i}/${MAX_RETRIES} timed out${i < MAX_RETRIES ? ', retrying...' : ' — no retries left'}`);
     if (i < MAX_RETRIES) {
       await sleep(RETRY_DELAY);
     }
@@ -104,23 +106,25 @@ export async function sendChatMessage(messages, portfolioData, configData) {
 
   // Phase 2: OpenRouter (3 attempts, retry only on timeout)
   for (let i = 1; i <= MAX_RETRIES; i++) {
+    console.log(`🟢 OpenRouter attempt ${i}/${MAX_RETRIES} starting...`);
     const result = await attemptProviderCall(baseBody, 'openrouter');
     if (result.success) {
+      console.log(`✅ OpenRouter attempt ${i}/${MAX_RETRIES} succeeded`);
       return result.response;
     }
     if (result.isProviderError) {
-      console.warn(`OpenRouter provider error (no retry): ${result.error}`);
+      console.error(`❌ OpenRouter attempt ${i}/${MAX_RETRIES} provider error (no retry): ${result.error}`);
       break; // real error → skip remaining OpenRouter attempts
     }
     // Timeout — retry with fresh Vercel invocation
-    console.log(`OpenRouter attempt ${i}/${MAX_RETRIES} timed out, retrying...`);
+    console.warn(`⏱  OpenRouter attempt ${i}/${MAX_RETRIES} timed out${i < MAX_RETRIES ? ', retrying...' : ' — no retries left'}`);
     if (i < MAX_RETRIES) {
       await sleep(RETRY_DELAY);
     }
   }
 
   // All 6 attempts failed — use portfolio fallback response
-  console.warn('All AI providers unavailable after retries, using fallback');
+  console.warn('⚠️  All 6 AI provider attempts (3 NVIDIA + 3 OpenRouter) failed, using portfolio fallback');
   return getFallbackResponse(messages, portfolioData);
 }
 

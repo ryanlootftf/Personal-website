@@ -92,6 +92,8 @@ async function callNVIDIA(messages, model, temperature, max_tokens) {
   const apiKey = process.env.NVIDIA_API_KEY;
   if (!apiKey) throw new Error('NVIDIA_API_KEY not configured');
 
+  console.log('📡 Invoking NVIDIA Nim...');
+
   const nvidia = new OpenAI({
     apiKey,
     baseURL: NVIDIA_BASE_URL,
@@ -108,7 +110,12 @@ async function callNVIDIA(messages, model, temperature, max_tokens) {
       top_p: 0.9,
       max_tokens: max_tokens ?? 2048
     });
-    return completion.choices?.[0]?.message?.content || '';
+    const content = completion.choices?.[0]?.message?.content || '';
+    console.log('✅ NVIDIA Nim responded successfully');
+    return content;
+  } catch (err) {
+    console.warn(`❌ NVIDIA Nim failed: ${err.message}`);
+    throw err;
   } finally {
     clearTimeout(timeoutId);
   }
@@ -118,6 +125,8 @@ async function callNVIDIA(messages, model, temperature, max_tokens) {
 async function callOpenRouter(messages, model, temperature, max_tokens) {
   const apiKey = process.env.OPENROUTER_API_KEY;
   if (!apiKey) throw new Error('OPENROUTER_API_KEY not configured');
+
+  console.log('📡 Invoking OpenRouter...');
 
   const controller = new AbortController();
   const timeoutId = setTimeout(() => controller.abort(), PER_ATTEMPT_TIMEOUT);
@@ -145,11 +154,19 @@ async function callOpenRouter(messages, model, temperature, max_tokens) {
 
     if (!res.ok) {
       const errBody = await res.text().catch(() => '');
+      console.warn(`❌ OpenRouter API responded with ${res.status}: ${errBody}`);
       throw new Error(`OpenRouter API ${res.status}: ${errBody}`);
     }
 
     const data = await res.json();
-    return data.choices?.[0]?.message?.content || '';
+    const content = data.choices?.[0]?.message?.content || '';
+    console.log('✅ OpenRouter responded successfully');
+    return content;
+  } catch (err) {
+    if (!err.message.includes('OpenRouter API')) {
+      console.warn(`❌ OpenRouter failed: ${err.message}`);
+    }
+    throw err;
   } finally {
     clearTimeout(timeoutId);
   }
