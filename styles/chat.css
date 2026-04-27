@@ -303,28 +303,44 @@
 
 @media (max-width: 768px) {
     .chat-section {
-        padding: 2.5rem 1.5rem 1.5rem;
+        padding: 1.5rem 1rem 1rem;
     }
 
     .chat-title {
-        font-size: 1.3rem;
+        font-size: 1.1rem;
     }
 
     .chat-subtitle {
-        font-size: 0.8rem;
+        font-size: 0.75rem;
     }
 
     .message {
         max-width: 90%;
-        font-size: 0.85rem;
+        padding: 0.85rem 1rem 0.85rem;
+        font-size: 0.8rem;
+    }
+
+    .message.ai::before {
+        font-size: 0.6rem;
+        padding: 0.1rem 0.4rem;
     }
 
     .suggested-prompts {
-        gap: 0.5rem;
+        gap: 0.4rem;
     }
 
     .prompt-chip {
-        font-size: 0.7rem;
-        padding: 0.4rem 0.75rem;
+        font-size: 0.65rem;
+        padding: 0.3rem 0.6rem;
+    }
+
+    .chat-input {
+        padding: 0.75rem 3rem 0.75rem 1rem;
+        font-size: 0.8rem;
+        min-height: 44px;
+    }
+
+    .ai-disclaimer {
+        font-size: 0.6rem;
     }
 }
