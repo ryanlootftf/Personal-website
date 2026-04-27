@@ -4,7 +4,7 @@
  */
 
 const API_ENDPOINT = '/api/chat';
-const TIMEOUT_MS = 15000;
+const TIMEOUT_MS = 90000;
 
 /**
  * Send a message history to the API and get an AI response.

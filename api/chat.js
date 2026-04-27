@@ -4,6 +4,10 @@
  * Primary:   NVIDIA Nim API (stepfun-ai/step-3.5-flash)
  * Fallback:  OpenRouter (minimax/minimax-m2.5:free)
  *
+ * Retry behavior:
+ *   - Timeout/abort errors → retry up to 3 times (Vercel hard limit protection)
+ *   - Provider errors (bad key, bad model, 4xx/5xx) → throw immediately, no retry
+ *
  * Environment Variables:
  *   NVIDIA_API_KEY      - API key for NVIDIA Nim
  *   NVIDIA_BASE_URL     - (optional) custom NVIDIA endpoint
@@ -16,6 +20,54 @@ import OpenAI from 'openai';
 // ---- Configuration ----
 const NVIDIA_BASE_URL = process.env.NVIDIA_BASE_URL || 'https://integrate.api.nvidia.com/v1';
 const OPENROUTER_BASE_URL = process.env.OPENROUTER_BASE_URL || 'https://openrouter.ai/api/v1';
+const MAX_RETRIES = 3;
+const PER_ATTEMPT_TIMEOUT = 28_000; // just under Vercel's 30s limit
+
+// ---- Helpers ----
+
+/**
+ * Check if an error is a timeout/abort (should trigger a retry)
+ * vs a real provider error (should fail immediately).
+ */
+function isTimeoutError(err) {
+  return err?.name === 'AbortError'
+    || err?.message?.toLowerCase().includes('abort')
+    || err?.message?.toLowerCase().includes('timeout')
+    || err?.message?.toLowerCase().includes('timed out')
+    || err?.code === 'ETIMEDOUT'
+    || err?.code === 'ECONNABORTED';
+}
+
+/**
+ * Retry wrapper: retries only on timeout/abort errors.
+ * Provider errors (bad key, bad model, 4xx/5xx) throw immediately.
+ */
+async function withRetry(fn, providerName) {
+  let lastError = null;
+
+  for (let attempt = 1; attempt <= MAX_RETRIES; attempt++) {
+    try {
+      return await fn();
+    } catch (err) {
+      lastError = err;
+
+      if (isTimeoutError(err)) {
+        console.warn(`${providerName} attempt ${attempt}/${MAX_RETRIES} timed out`);
+        if (attempt < MAX_RETRIES) {
+          continue; // retry
+        }
+        // Last attempt failed too
+        throw new Error(`${providerName} failed after ${MAX_RETRIES} attempts (all timed out)`);
+      }
+
+      // Provider error (bad key, bad model, 4xx, 5xx, etc.) — throw immediately
+      console.warn(`${providerName} provider error (no retry): ${err.message}`);
+      throw err;
+    }
+  }
+
+  throw lastError || new Error(`${providerName} failed unexpectedly`);
+}
 
 // Build the system prompt from portfolio data
 function buildSystemMessage(portfolio) {
@@ -92,7 +144,7 @@ async function callNVIDIA(messages, model, temperature, max_tokens) {
   });
 
   const controller = new AbortController();
-  const timeoutId = setTimeout(() => controller.abort(), 25000);
+  const timeoutId = setTimeout(() => controller.abort(), PER_ATTEMPT_TIMEOUT);
 
   try {
     const completion = await nvidia.chat.completions.create({
@@ -113,33 +165,40 @@ async function callOpenRouter(messages, model, temperature, max_tokens) {
   const apiKey = process.env.OPENROUTER_API_KEY;
   if (!apiKey) throw new Error('OPENROUTER_API_KEY not configured');
 
-  const url = `${OPENROUTER_BASE_URL}/chat/completions`;
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), PER_ATTEMPT_TIMEOUT);
 
-  const body = {
-    model: model || 'minimax/minimax-m2.5:free',
-    messages,
-    temperature: temperature ?? 0.7,
-    max_tokens: max_tokens ?? 1024
-  };
+  try {
+    const url = `${OPENROUTER_BASE_URL}/chat/completions`;
 
-  const res = await fetch(url, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${apiKey}`,
-      'HTTP-Referer': process.env.VERCEL_URL || 'https://portfolio.vercel.app',
-      'X-Title': 'AI Portfolio'
-    },
-    body: JSON.stringify(body)
-  });
+    const body = {
+      model: model || 'minimax/minimax-m2.5:free',
+      messages,
+      temperature: temperature ?? 0.7,
+      max_tokens: max_tokens ?? 1024
+    };
 
-  if (!res.ok) {
-    const errBody = await res.text().catch(() => '');
-    throw new Error(`OpenRouter API ${res.status}: ${errBody}`);
+    const res = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${apiKey}`,
+        'HTTP-Referer': process.env.VERCEL_URL || 'https://portfolio.vercel.app',
+        'X-Title': 'AI Portfolio'
+      },
+      body: JSON.stringify(body)
+    });
+
+    if (!res.ok) {
+      const errBody = await res.text().catch(() => '');
+      throw new Error(`OpenRouter API ${res.status}: ${errBody}`);
+    }
+
+    const data = await res.json();
+    return data.choices?.[0]?.message?.content || '';
+  } finally {
+    clearTimeout(timeoutId);
   }
-
-  const data = await res.json();
-  return data.choices?.[0]?.message?.content || '';
 }
 
 // ---- Vercel Serverless Handler ----
@@ -176,11 +235,14 @@ export default async function handler(req, res) {
   let usedProvider = 'none';
   let error = null;
 
-  // Primary: NVIDIA Nim
+  // Primary: NVIDIA Nim (with retry on timeout only)
   if (process.env.NVIDIA_API_KEY) {
     try {
       console.log('Attempting NVIDIA Nim API call...');
-      response = await callNVIDIA(fullMessages, model, temperature, max_tokens);
+      response = await withRetry(
+        () => callNVIDIA(fullMessages, model, temperature, max_tokens),
+        'NVIDIA'
+      );
       usedProvider = 'nvidia';
       console.log('NVIDIA API succeeded');
     } catch (err) {
@@ -189,11 +251,14 @@ export default async function handler(req, res) {
     }
   }
 
-  // Fallback: OpenRouter
+  // Fallback: OpenRouter (with retry on timeout only)
   if (!response && process.env.OPENROUTER_API_KEY) {
     try {
       console.log('Falling back to OpenRouter...');
-      response = await callOpenRouter(fullMessages, model, temperature, max_tokens);
+      response = await withRetry(
+        () => callOpenRouter(fullMessages, model, temperature, max_tokens),
+        'OpenRouter'
+      );
       usedProvider = 'openrouter';
       console.log('OpenRouter succeeded');
     } catch (err2) {
