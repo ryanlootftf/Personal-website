@@ -229,7 +229,7 @@ body {
         max-width: 100vw;
     }
     #app-wrapper[data-view="chat"] .container {
-        grid-template-rows: 1fr 0fr;
+        grid-template-rows: 1fr;
     }
 
     /* UI-only view — fullscreen on mobile */
@@ -238,7 +238,15 @@ body {
     }
     #app-wrapper[data-view="ui"] .container {
         grid-template-columns: 1fr;
-        grid-template-rows: 0fr 1fr;
+        grid-template-rows: 1fr;
+    }
+    #app-wrapper[data-view="ui"] .chat-section {
+        display: none;
+    }
+
+    /* Chat-only view — hide content-panel border/strip */
+    #app-wrapper[data-view="chat"] .content-panel {
+        display: none;
     }
 }
 
