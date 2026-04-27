@@ -1,59 +1,127 @@
 /**
  * api.js - Sends chat messages to the Vercel serverless function.
- * Handles timeouts and fallback messages if the API is unreachable.
+ * Handles client-side retry: 3 attempts NVIDIA → 3 attempts OpenRouter.
+ * Each attempt is a fresh Vercel invocation (avoids 30s hard limit).
+ * Only retries on timeouts — 4xx/5xx provider errors skip remaining attempts.
  */
 
 const API_ENDPOINT = '/api/chat';
-const TIMEOUT_MS = 90000;
+const PER_ATTEMPT_TIMEOUT = 28000; // 28s per attempt (just under Vercel's 30s)
+const RETRY_DELAY = 1000;          // 1s delay between retries
+const MAX_RETRIES = 3;
+
+/**
+ * Sleep helper
+ */
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+/**
+ * Check if an error is a timeout/abort (should trigger a retry).
+ */
+function isTimeoutError(err) {
+  return err?.name === 'AbortError'
+    || err?.message?.toLowerCase().includes('abort')
+    || err?.message?.toLowerCase().includes('timeout')
+    || err?.message?.toLowerCase().includes('timed out');
+}
+
+/**
+ * Attempt a single API call to the specified provider.
+ * @param {Object} body - request body (messages, portfolio, model, etc.)
+ * @param {string} provider - 'nvidia' | 'openrouter'
+ * @returns {Promise<{success: boolean, response?: string, isProviderError?: boolean}>}
+ */
+async function attemptProviderCall(body, provider) {
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), PER_ATTEMPT_TIMEOUT);
+
+  try {
+    const res = await fetch(API_ENDPOINT, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ ...body, provider }),
+      signal: controller.signal
+    });
+
+    clearTimeout(timeoutId);
+
+    // 4xx/5xx — provider error, should NOT retry
+    if (!res.ok) {
+      const errText = await res.text().catch(() => 'Unknown error');
+      return { success: false, isProviderError: true, error: `API ${res.status}: ${errText}` };
+    }
+
+    const data = await res.json();
+    return { success: true, response: data.response || 'I could not generate a response at this time.' };
+  } catch (err) {
+    clearTimeout(timeoutId);
+
+    if (isTimeoutError(err)) {
+      return { success: false, isProviderError: false, error: 'timeout' };
+    }
+
+    // Network error, fetch failed, etc.
+    return { success: false, isProviderError: true, error: err.message };
+  }
+}
 
 /**
  * Send a message history to the API and get an AI response.
+ * Retry sequence: 3× NVIDIA → 3× OpenRouter
+ * Only retries on timeouts; 4xx/5xx skips remaining attempts for that provider.
  * @param {Array<{role:string,content:string}>} messages - conversation so far
  * @param {Object} portfolioData - full portfolio object for context
  * @param {Object} configData - site config (model, temperature, etc.)
  * @returns {Promise<string>} the AI's response text
  */
 export async function sendChatMessage(messages, portfolioData, configData) {
-  const controller = new AbortController();
-  const timeoutId = setTimeout(() => controller.abort(), TIMEOUT_MS);
+  const baseBody = {
+    messages,
+    portfolio: portfolioData,
+    model: configData?.ai?.model || 'minimax/minimax-m2.5:free',
+    temperature: configData?.ai?.temperature ?? 0.7,
+    max_tokens: configData?.ai?.max_tokens ?? 1024
+  };
 
-  try {
-    const body = {
-      messages,
-      portfolio: portfolioData,
-      model: configData?.ai?.model || 'minimax/minimax-m2.5:free',
-      temperature: configData?.ai?.temperature ?? 0.7,
-      max_tokens: configData?.ai?.max_tokens ?? 1024
-    };
-
-    const res = await fetch(API_ENDPOINT, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(body),
-      signal: controller.signal
-    });
-
-    clearTimeout(timeoutId);
-
-    if (!res.ok) {
-      const errText = await res.text().catch(() => 'Unknown error');
-      throw new Error(`API returned ${res.status}: ${errText}`);
+  // Phase 1: NVIDIA (3 attempts, retry only on timeout)
+  for (let i = 1; i <= MAX_RETRIES; i++) {
+    const result = await attemptProviderCall(baseBody, 'nvidia');
+    if (result.success) {
+      return result.response;
     }
-
-    const data = await res.json();
-    return data.response || 'I apologize, but I could not generate a response at this time.';
-  } catch (err) {
-    clearTimeout(timeoutId);
-
-    if (err.name === 'AbortError') {
-      return 'The request timed out. Please try asking something simpler, or check back later.';
+    if (result.isProviderError) {
+      console.warn(`NVIDIA provider error (no retry): ${result.error}`);
+      break; // real error → skip remaining NVIDIA attempts
     }
-
-    console.error('API call failed:', err);
-
-    // Provide a fallback response using portfolio data
-    return getFallbackResponse(messages, portfolioData);
+    // Timeout — retry with fresh Vercel invocation
+    console.log(`NVIDIA attempt ${i}/${MAX_RETRIES} timed out, retrying...`);
+    if (i < MAX_RETRIES) {
+      await sleep(RETRY_DELAY);
+    }
   }
+
+  // Phase 2: OpenRouter (3 attempts, retry only on timeout)
+  for (let i = 1; i <= MAX_RETRIES; i++) {
+    const result = await attemptProviderCall(baseBody, 'openrouter');
+    if (result.success) {
+      return result.response;
+    }
+    if (result.isProviderError) {
+      console.warn(`OpenRouter provider error (no retry): ${result.error}`);
+      break; // real error → skip remaining OpenRouter attempts
+    }
+    // Timeout — retry with fresh Vercel invocation
+    console.log(`OpenRouter attempt ${i}/${MAX_RETRIES} timed out, retrying...`);
+    if (i < MAX_RETRIES) {
+      await sleep(RETRY_DELAY);
+    }
+  }
+
+  // All 6 attempts failed — use portfolio fallback response
+  console.warn('All AI providers unavailable after retries, using fallback');
+  return getFallbackResponse(messages, portfolioData);
 }
 
 /**

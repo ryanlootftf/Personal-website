@@ -1,18 +1,19 @@
 /**
  * Vercel Serverless Function: /api/chat
  *
- * Primary:   NVIDIA Nim API (stepfun-ai/step-3.5-flash)
- * Fallback:  OpenRouter (minimax/minimax-m2.5:free)
+ * Accepts a `provider` field in the request body:
+ *   - 'nvidia'     → tries only NVIDIA Nim API
+ *   - 'openrouter' → tries only OpenRouter
+ *   - omitted      → tries NVIDIA first, falls back to OpenRouter (backwards compat)
  *
- * Retry behavior:
- *   - Timeout/abort errors → retry up to 3 times (Vercel hard limit protection)
- *   - Provider errors (bad key, bad model, 4xx/5xx) → throw immediately, no retry
+ * Each invocation has a 28s AbortController (just under Vercel's 30s hard limit).
+ * No server-side retries — client handles retries via fresh invocations.
  *
  * Environment Variables:
- *   NVIDIA_API_KEY      - API key for NVIDIA Nim
- *   NVIDIA_BASE_URL     - (optional) custom NVIDIA endpoint
- *   OPENROUTER_API_KEY   - API key for OpenRouter (fallback)
- *   OPENROUTER_BASE_URL  - (optional) custom OpenRouter endpoint
+ *   NVIDIA_API_KEY        - API key for NVIDIA Nim
+ *   NVIDIA_BASE_URL       - (optional) custom NVIDIA endpoint
+ *   OPENROUTER_API_KEY     - API key for OpenRouter (fallback)
+ *   OPENROUTER_BASE_URL    - (optional) custom OpenRouter endpoint
  */
 
 import OpenAI from 'openai';
@@ -20,54 +21,7 @@ import OpenAI from 'openai';
 // ---- Configuration ----
 const NVIDIA_BASE_URL = process.env.NVIDIA_BASE_URL || 'https://integrate.api.nvidia.com/v1';
 const OPENROUTER_BASE_URL = process.env.OPENROUTER_BASE_URL || 'https://openrouter.ai/api/v1';
-const MAX_RETRIES = 3;
 const PER_ATTEMPT_TIMEOUT = 28_000; // just under Vercel's 30s limit
-
-// ---- Helpers ----
-
-/**
- * Check if an error is a timeout/abort (should trigger a retry)
- * vs a real provider error (should fail immediately).
- */
-function isTimeoutError(err) {
-  return err?.name === 'AbortError'
-    || err?.message?.toLowerCase().includes('abort')
-    || err?.message?.toLowerCase().includes('timeout')
-    || err?.message?.toLowerCase().includes('timed out')
-    || err?.code === 'ETIMEDOUT'
-    || err?.code === 'ECONNABORTED';
-}
-
-/**
- * Retry wrapper: retries only on timeout/abort errors.
- * Provider errors (bad key, bad model, 4xx/5xx) throw immediately.
- */
-async function withRetry(fn, providerName) {
-  let lastError = null;
-
-  for (let attempt = 1; attempt <= MAX_RETRIES; attempt++) {
-    try {
-      return await fn();
-    } catch (err) {
-      lastError = err;
-
-      if (isTimeoutError(err)) {
-        console.warn(`${providerName} attempt ${attempt}/${MAX_RETRIES} timed out`);
-        if (attempt < MAX_RETRIES) {
-          continue; // retry
-        }
-        // Last attempt failed too
-        throw new Error(`${providerName} failed after ${MAX_RETRIES} attempts (all timed out)`);
-      }
-
-      // Provider error (bad key, bad model, 4xx, 5xx, etc.) — throw immediately
-      console.warn(`${providerName} provider error (no retry): ${err.message}`);
-      throw err;
-    }
-  }
-
-  throw lastError || new Error(`${providerName} failed unexpectedly`);
-}
 
 // Build the system prompt from portfolio data
 function buildSystemMessage(portfolio) {
@@ -218,7 +172,7 @@ export default async function handler(req, res) {
     return;
   }
 
-  const { messages, portfolio, model, temperature, max_tokens } = req.body || {};
+  const { messages, portfolio, model, temperature, max_tokens, provider } = req.body || {};
 
   if (!messages || !Array.isArray(messages) || messages.length === 0) {
     res.status(400).json({ error: 'Invalid or missing messages array' });
@@ -235,43 +189,55 @@ export default async function handler(req, res) {
   let usedProvider = 'none';
   let error = null;
 
-  // Primary: NVIDIA Nim (with retry on timeout only)
-  if (process.env.NVIDIA_API_KEY) {
+  if (provider === 'nvidia') {
+    // Client requested NVIDIA only (part of retry sequence)
+    if (!process.env.NVIDIA_API_KEY) {
+      res.status(400).json({ error: 'NVIDIA_API_KEY not configured on server' });
+      return;
+    }
     try {
-      console.log('Attempting NVIDIA Nim API call...');
-      response = await withRetry(
-        () => callNVIDIA(fullMessages, model, temperature, max_tokens),
-        'NVIDIA'
-      );
+      response = await callNVIDIA(fullMessages, model, temperature, max_tokens);
       usedProvider = 'nvidia';
-      console.log('NVIDIA API succeeded');
     } catch (err) {
       error = err.message;
-      console.warn('NVIDIA API failed:', err.message);
     }
-  }
-
-  // Fallback: OpenRouter (with retry on timeout only)
-  if (!response && process.env.OPENROUTER_API_KEY) {
+  } else if (provider === 'openrouter') {
+    // Client requested OpenRouter only (part of retry sequence)
+    if (!process.env.OPENROUTER_API_KEY) {
+      res.status(400).json({ error: 'OPENROUTER_API_KEY not configured on server' });
+      return;
+    }
     try {
-      console.log('Falling back to OpenRouter...');
-      response = await withRetry(
-        () => callOpenRouter(fullMessages, model, temperature, max_tokens),
-        'OpenRouter'
-      );
+      response = await callOpenRouter(fullMessages, model, temperature, max_tokens);
       usedProvider = 'openrouter';
-      console.log('OpenRouter succeeded');
-    } catch (err2) {
-      error = (error ? `${error} | ` : '') + `OpenRouter: ${err2.message}`;
-      console.warn('OpenRouter also failed:', err2.message);
+    } catch (err) {
+      error = err.message;
+    }
+  } else {
+    // Legacy/no provider specified — NVIDIA first, fallback OpenRouter
+    if (process.env.NVIDIA_API_KEY) {
+      try {
+        response = await callNVIDIA(fullMessages, model, temperature, max_tokens);
+        usedProvider = 'nvidia';
+      } catch (err) {
+        error = `NVIDIA: ${err.message}`;
+      }
+    }
+
+    if (!response && process.env.OPENROUTER_API_KEY) {
+      try {
+        response = await callOpenRouter(fullMessages, model, temperature, max_tokens);
+        usedProvider = 'openrouter';
+      } catch (err) {
+        error = (error ? `${error} | ` : '') + `OpenRouter: ${err.message}`;
+      }
     }
   }
 
-  // If both failed
   if (!response) {
     res.status(503).json({
-      error: 'All AI providers unavailable',
-      details: error || 'No API keys configured. Set NVIDIA_API_KEY or OPENROUTER_API_KEY.'
+      error: 'AI provider unavailable',
+      details: error || 'Provider not configured. Set NVIDIA_API_KEY or OPENROUTER_API_KEY.'
     });
     return;
   }
