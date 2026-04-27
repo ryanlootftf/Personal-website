@@ -32,6 +32,7 @@ export async function loadAndRender() {
 
     renderPortfolio(portfolioData);
     setupSuggestedPrompts();
+    setupLogoText();
     return true;
   } catch (err) {
     console.error('Data load error:', err);
@@ -44,6 +45,15 @@ export async function loadAndRender() {
     `;
     return false;
   }
+}
+
+/**
+ * Set the logo text in the header from config (keeps the ◆ prefix).
+ */
+function setupLogoText() {
+  const logoEl = document.querySelector('.logo');
+  if (!logoEl || !configData?.site?.logoText) return;
+  logoEl.textContent = '◆ ' + configData.site.logoText;
 }
 
 /**
