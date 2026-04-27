@@ -11,6 +11,8 @@
  *   OPENROUTER_BASE_URL  - (optional) custom OpenRouter endpoint
  */
 
+import OpenAI from 'openai';
+
 // ---- Configuration ----
 const NVIDIA_BASE_URL = process.env.NVIDIA_BASE_URL || 'https://integrate.api.nvidia.com/v1';
 const OPENROUTER_BASE_URL = process.env.OPENROUTER_BASE_URL || 'https://openrouter.ai/api/v1';
@@ -79,36 +81,25 @@ function buildSystemMessage(portfolio) {
   return prompt;
 }
 
-// ---- NVIDIA Nim API ----
+// ---- NVIDIA Nim API (via OpenAI SDK) ----
 async function callNVIDIA(messages, model, temperature, max_tokens) {
   const apiKey = process.env.NVIDIA_API_KEY;
   if (!apiKey) throw new Error('NVIDIA_API_KEY not configured');
 
-  const url = `${NVIDIA_BASE_URL}/chat/completions`;
-
-  const body = {
-    model: model || 'nvidia/nemotron-4-340b-instruct',
-    messages,
-    temperature: temperature ?? 0.7,
-    max_tokens: max_tokens ?? 1024
-  };
-
-  const res = await fetch(url, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${apiKey}`
-    },
-    body: JSON.stringify(body)
+  const nvidia = new OpenAI({
+    apiKey,
+    baseURL: NVIDIA_BASE_URL,
   });
 
-  if (!res.ok) {
-    const errBody = await res.text().catch(() => '');
-    throw new Error(`NVIDIA API ${res.status}: ${errBody}`);
-  }
+  const completion = await nvidia.chat.completions.create({
+    model: model || 'stepfun-ai/step-3.5-flash',
+    messages,
+    temperature: temperature ?? 1,
+    top_p: 0.9,
+    max_tokens: max_tokens ?? 16384
+  });
 
-  const data = await res.json();
-  return data.choices?.[0]?.message?.content || '';
+  return completion.choices?.[0]?.message?.content || '';
 }
 
 // ---- OpenRouter Fallback ----
