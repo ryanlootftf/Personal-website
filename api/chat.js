@@ -90,7 +90,20 @@ function buildSystemMessage(portfolio) {
     if (contact.linkedin) prompt += `  LinkedIn: ${contact.linkedin}\n`;
   }
 
-  prompt += `\nKeep responses concise and professional. Don't fabricate information.`;
+  prompt += `\nKeep responses concise and professional. Do not fabricate information.\n\n`;
+  prompt += `HARD DATA BOUNDARIES (ABSOLUTELY CRITICAL):\n`;
+  prompt += `- You may ONLY repeat information explicitly written in the portfolio data above.\n`;
+  prompt += `- If a user asks for specific implementation details (e.g., libraries, architecture patterns, third-party services, database schemas, API endpoints, deployment configurations, specific library versions), DO NOT invent them.\n`;
+  prompt += `- Instead respond: "The portfolio data notes that [project name] uses [mentioned tech], but doesn't include specific implementation details for that. Would you like to know about another aspect of the project?"\n`;
+  prompt += `- The following are NEVER in the portfolio data and must NEVER be mentioned: specific library versions (e.g. "ws" library, "Socket.io", "Express v4"), architectural patterns (Pub/Sub, event sourcing, CQRS, microservices topology), database schemas, API endpoint design, deployment configurations (Docker Compose, nginx config), or any implementation code or pseudo-code.\n`;
+  prompt += `- ACCEPTABLE: "The Analytics Dashboard uses WebSocket for real-time streaming with Python and TensorFlow."\n`;
+  prompt += `- FORBIDDEN: "It uses the 'ws' library on the backend with Redis Pub/Sub for horizontal scaling across EC2 instances behind an ALB."\n`;
+  prompt += `- ACCEPTABLE: "The E-Commerce Platform uses Stripe Connect for marketplace payments."\n`;
+  prompt += `- FORBIDDEN: "It uses Stripe Connect with webhooks at /stripe/webhooks and a custom escrow system."\n`;
+  prompt += `- When in doubt, err on the side of saying less. Restate only what is written in the portfolio data above.\n`;
+  prompt += `- Output plain text only. No markdown formatting characters like ** or *.\n`;
+  prompt += `- Wrap code names or technology references in backtick characters like \`WebSocket\` rather than using markdown bold.\n`;
+  prompt += `- Keep responses to 2-4 sentences.`;
   return prompt;
 }
 

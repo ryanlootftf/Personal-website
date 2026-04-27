@@ -40,6 +40,7 @@
     position: relative;
     z-index: 1;
     min-height: 0;
+    padding-top: 10px;
 }
 
 .chat-messages::-webkit-scrollbar {
@@ -57,11 +58,30 @@
 }
 
 .message {
-    padding: 1rem 1.25rem;
+    padding: 1.15rem 1.25rem 1rem;
     border-radius: 12px;
     max-width: 85%;
     animation: slideIn 0.3s ease-out;
     position: relative;
+}
+
+.message p {
+    margin: 0;
+    line-height: 1.6;
+}
+
+.message p + p {
+    margin-top: 0.5rem;
+}
+
+.message code {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.82em;
+    background: rgba(0, 255, 159, 0.08);
+    border: 1px solid rgba(0, 255, 159, 0.15);
+    border-radius: 3px;
+    padding: 0.1em 0.35em;
+    color: var(--accent-primary);
 }
 
 .message.user {
@@ -79,9 +99,11 @@
 
 .message.ai::before {
     content: 'AI';
-    position: absolute;
-    top: -8px;
-    left: 12px;
+    position: relative;
+    display: inline-block;
+    top: 0;
+    left: 0;
+    margin-bottom: 0.4rem;
     font-size: 0.65rem;
     padding: 0.15rem 0.5rem;
     background: var(--accent-primary);
