@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Portfolio - Interactive Experience</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;600;700&family=IBM+Plex+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0f0f0f;
+            --bg-secondary: #1a1a1a;
+            --bg-tertiary: #242424;
+            --accent-primary: #00ff9f;
+            --text-primary: #e0e0e0;
+            --text-secondary: #a0a0a0;
+            --text-muted: #707070;
+            --border-color: #2a2a2a;
+            --border-accent: rgba(0, 255, 159, 0.3);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'IBM Plex Mono', monospace;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            overflow: hidden;
+            height: 100vh;
+        }
+
+        .container {
+            display: grid;
+            grid-template-columns: 45% 55%;
+            height: 100vh;
+            position: relative;
+            z-index: 1;
+            gap: 0;
+        }
+
+        /* Header */
+        .header {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            padding: 1.5rem 2.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: var(--bg-primary);
+            z-index: 100;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .logo {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 1.2rem;
+            font-weight: 500;
+            color: var(--text-primary);
+            letter-spacing: 0.05em;
+        }
+
+        .status {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .status-dot {
+            width: 6px;
+            height: 6px;
+            background: var(--accent-primary);
+            border-radius: 50%;
+        }
+
+        /* Chat Section */
+        .chat-section {
+            padding: 7rem 2.5rem 2.5rem;
+            border-right: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            background: var(--bg-primary);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .chat-header {
+            margin-bottom: 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .chat-title {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 1.5rem;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+            line-height: 1.3;
+            color: var(--text-primary);
+        }
+
+        .chat-subtitle {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        .chat-messages {
+            flex: 1;
+            overflow-y: auto;
+            margin-bottom: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .chat-messages::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .chat-messages::-webkit-scrollbar-track {
+            background: var(--bg-secondary);
+            border-radius: 10px;
+        }
+
+        .chat-messages::-webkit-scrollbar-thumb {
+            background: var(--accent-primary);
+            border-radius: 10px;
+        }
+
+        .message {
+            padding: 1rem 1.25rem;
+            border-radius: 12px;
+            max-width: 85%;
+            animation: slideIn 0.3s ease-out;
+            position: relative;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .message.user {
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            align-self: flex-end;
+            margin-left: auto;
+        }
+
+        .message.ai {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            align-self: flex-start;
+        }
+
+        .message.ai::before {
+            content: 'AI';
+            position: absolute;
+            top: -8px;
+            left: 12px;
+            font-size: 0.65rem;
+            padding: 0.15rem 0.5rem;
+            background: var(--accent-primary);
+            color: var(--bg-primary);
+            border-radius: 3px;
+            font-weight: 500;
+            letter-spacing: 0.05em;
+        }
+
+        .chat-input-container {
+            position: relative;
+            z-index: 1;
+        }
+
+        .chat-input {
+            width: 100%;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1rem 3.5rem 1rem 1.25rem;
+            color: var(--text-primary);
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.9rem;
+            transition: border-color 0.2s ease;
+            resize: none;
+            min-height: 56px;
+            max-height: 150px;
+        }
+
+        .chat-input:focus {
+            outline: none;
+            border-color: var(--accent-primary);
+        }
+
+        .chat-input::placeholder {
+            color: var(--text-muted);
+        }
+
+        .send-button {
+            position: absolute;
+            right: 8px;
+            bottom: 8px;
+            width: 40px;
+            height: 40px;
+            background: var(--accent-primary);
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.2s ease;
+        }
+
+        .send-button:hover {
+            opacity: 0.8;
+        }
+
+        .send-button::before {
+            content: '→';
+            color: var(--bg-primary);
+            font-size: 1.2rem;
+            font-weight: 700;
+        }
+
+        /* Content Panel */
+        .content-panel {
+            padding: 7rem 2.5rem 2.5rem;
+            background: var(--bg-secondary);
+            overflow-y: auto;
+            position: relative;
+        }
+
+        .content-panel::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .content-panel::-webkit-scrollbar-track {
+            background: var(--bg-primary);
+        }
+
+        .content-panel::-webkit-scrollbar-thumb {
+            background: var(--border-color);
+            border-radius: 4px;
+        }
+
+        .content-panel::-webkit-scrollbar-thumb:hover {
+            background: var(--text-muted);
+        }
+
+        .panel-section {
+            margin-bottom: 3rem;
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .section-label {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--accent-primary);
+            margin-bottom: 1rem;
+            font-weight: 500;
+        }
+
+        .section-title {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 2rem;
+            font-weight: 500;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+            color: var(--text-primary);
+        }
+
+        .section-content {
+            color: var(--text-secondary);
+            line-height: 1.8;
+            font-size: 0.95rem;
+        }
+
+        /* Project Cards */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .project-card {
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1.5rem;
+            transition: border-color 0.2s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-card:hover {
+            border-color: var(--accent-primary);
+        }
+
+        .project-title {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 1rem;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+
+        .project-description {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .project-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .tag {
+            font-size: 0.7rem;
+            padding: 0.25rem 0.75rem;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        /* Experience Timeline */
+        .timeline {
+            position: relative;
+            padding-left: 2rem;
+            margin-top: 2rem;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 1px;
+            background: var(--border-color);
+        }
+
+        .timeline-item {
+            position: relative;
+            padding-bottom: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -2.25rem;
+            top: 0.5rem;
+            width: 8px;
+            height: 8px;
+            background: var(--accent-primary);
+            border: 2px solid var(--bg-secondary);
+            border-radius: 50%;
+        }
+
+        .timeline-date {
+            font-size: 0.75rem;
+            color: var(--accent-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-title {
+            font-family: 'Pixelify Sans', sans-serif;
+            font-size: 1.2rem;
+            margin-bottom: 0.25rem;
+            color: var(--text-primary);
+        }
+
+        .timeline-company {
+            font-size: 0.9rem;
+            color: var(--accent-primary);
+            margin-bottom: 0.75rem;
+        }
+
+        .timeline-description {
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            line-height: 1.6;
+        }
+
+        /* Suggested prompts */
+        .suggested-prompts {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .prompt-chip {
+            padding: 0.5rem 1rem;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .prompt-chip:hover {
+            background: rgba(0, 255, 159, 0.1);
+            border-color: var(--accent-primary);
+            color: var(--accent-primary);
+            transform: translateY(-2px);
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .container {
+                grid-template-columns: 1fr;
+                grid-template-rows: 50% 50%;
+            }
+
+            .chat-section {
+                border-right: none;
+                border-bottom: 1px solid var(--border-color);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                padding: 1rem 1.5rem;
+            }
+
+            .logo {
+                font-size: 1.2rem;
+            }
+
+            .chat-section,
+            .content-panel {
+                padding: 5rem 1.5rem 1.5rem;
+            }
+
+            .chat-title {
+                font-size: 1.5rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="logo">◆ AI.PORTFOLIO</div>
+        <div class="status">
+            <div class="status-dot"></div>
+            <span>System Active</span>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Chat Section -->
+        <div class="chat-section">
+            <div class="chat-header">
+                <h1 class="chat-title">Ask me anything about my work</h1>
+                <p class="chat-subtitle">I'm powered by AI and can answer questions about my experience, projects, and skills.</p>
+            </div>
+
+            <div class="suggested-prompts">
+                <div class="prompt-chip">What projects have you worked on?</div>
+                <div class="prompt-chip">Tell me about your experience</div>
+                <div class="prompt-chip">What are your skills?</div>
+            </div>
+
+            <div class="chat-messages">
+                <div class="message ai">
+                    <p>👋 Hello! I'm an AI assistant that knows all about this portfolio. Feel free to ask me about projects, work experience, technical skills, or anything else you'd like to know!</p>
+                </div>
+
+                <div class="message user">
+                    <p>What kind of projects have you worked on recently?</p>
+                </div>
+
+                <div class="message ai">
+                    <p>Great question! I've worked on several exciting projects recently. Let me show you some highlights on the right panel. You'll see a mix of web applications, AI integrations, and full-stack solutions. Each project uses modern technologies and focuses on solving real-world problems.</p>
+                </div>
+            </div>
+
+            <div class="chat-input-container">
+                <textarea class="chat-input" placeholder="Type your question here..." rows="1"></textarea>
+                <button class="send-button"></button>
+            </div>
+        </div>
+
+        <!-- Content Panel -->
+        <div class="content-panel">
+            <div class="panel-section">
+                <div class="section-label">Featured Projects</div>
+                <h2 class="section-title">Recent Work</h2>
+                
+                <div class="projects-grid">
+                    <div class="project-card">
+                        <h3 class="project-title">AI-Powered Analytics Dashboard</h3>
+                        <p class="project-description">Real-time data visualization platform with machine learning predictions and automated insights.</p>
+                        <div class="project-tags">
+                            <span class="tag">React</span>
+                            <span class="tag">Python</span>
+                            <span class="tag">TensorFlow</span>
+                        </div>
+                    </div>
+
+                    <div class="project-card">
+                        <h3 class="project-title">E-Commerce Platform</h3>
+                        <p class="project-description">Full-stack marketplace with payment integration, inventory management, and seller dashboard.</p>
+                        <div class="project-tags">
+                            <span class="tag">Node.js</span>
+                            <span class="tag">MongoDB</span>
+                            <span class="tag">Stripe</span>
+                        </div>
+                    </div>
+
+                    <div class="project-card">
+                        <h3 class="project-title">Mobile Fitness Tracker</h3>
+                        <p class="project-description">Cross-platform app for workout tracking, nutrition planning, and progress analytics.</p>
+                        <div class="project-tags">
+                            <span class="tag">React Native</span>
+                            <span class="tag">Firebase</span>
+                            <span class="tag">Charts</span>
+                        </div>
+                    </div>
+
+                    <div class="project-card">
+                        <h3 class="project-title">DevOps Automation Suite</h3>
+                        <p class="project-description">CI/CD pipeline tools with automated testing, deployment, and monitoring capabilities.</p>
+                        <div class="project-tags">
+                            <span class="tag">Docker</span>
+                            <span class="tag">Kubernetes</span>
+                            <span class="tag">AWS</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel-section">
+                <div class="section-label">Career Journey</div>
+                <h2 class="section-title">Experience</h2>
+                
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-date">2023 - Present</div>
+                        <h3 class="timeline-title">Senior Full Stack Developer</h3>
+                        <div class="timeline-company">Tech Innovations Inc.</div>
+                        <p class="timeline-description">Leading development of cloud-native applications using microservices architecture. Mentoring junior developers and driving technical decisions for scalability and performance.</p>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-date">2021 - 2023</div>
+                        <h3 class="timeline-title">Full Stack Developer</h3>
+                        <div class="timeline-company">Digital Solutions Co.</div>
+                        <p class="timeline-description">Built and maintained multiple client-facing web applications. Implemented RESTful APIs and integrated third-party services for enhanced functionality.</p>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-date">2019 - 2021</div>
+                        <h3 class="timeline-title">Frontend Developer</h3>
+                        <div class="timeline-company">StartUp Studio</div>
+                        <p class="timeline-description">Designed and developed responsive user interfaces for various startups. Collaborated with UX designers to create intuitive and accessible web experiences.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Auto-resize textarea
+        const textarea = document.querySelector('.chat-input');
+        textarea.addEventListener('input', function() {
+            this.style.height = 'auto';
+            this.style.height = Math.min(this.scrollHeight, 150) + 'px';
+        });
+
+        // Prompt chips click handler
+        document.querySelectorAll('.prompt-chip').forEach(chip => {
+            chip.addEventListener('click', function() {
+                textarea.value = this.textContent;
+                textarea.focus();
+            });
+        });
+
+        // Send button placeholder (will be replaced with actual API call)
+        document.querySelector('.send-button').addEventListener('click', function() {
+            const message = textarea.value.trim();
+            if (message) {
+                console.log('Sending message:', message);
+                textarea.value = '';
+                textarea.style.height = 'auto';
+            }
+        });
+
+        // Enter to send (Shift+Enter for new line)
+        textarea.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                document.querySelector('.send-button').click();
+            }
+        });
+    </script>
+</body>
+</html>

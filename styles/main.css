@@ -24,33 +24,50 @@ body {
     height: 100vh;
 }
 
+/* App wrapper — flex column, header above, container fills remaining */
+#app-wrapper {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    width: 100%;
+    margin: 0 auto;
+    transition: max-width 0.35s ease;
+}
+
+/* Collapsed: 75vw centered */
+#app-wrapper[data-view="chat"],
+#app-wrapper[data-view="ui"] {
+    max-width: 75vw;
+}
+
 .container {
     display: grid;
     grid-template-columns: 45% 55%;
-    height: 100vh;
+    flex: 1;
+    min-height: 0;
     position: relative;
     z-index: 1;
     gap: 0;
-    transition: grid-template-columns 0.35s ease, grid-template-rows 0.35s ease;
+    transition: grid-template-columns 0.35s ease;
 }
 
 /* Collapsed views */
-.container[data-view="chat"] {
+#app-wrapper[data-view="chat"] .container {
     grid-template-columns: 1fr 0fr;
 }
 
-.container[data-view="chat"] .content-panel {
+#app-wrapper[data-view="chat"] .content-panel {
     overflow: hidden;
     opacity: 0;
     pointer-events: none;
     transition: opacity 0.25s ease;
 }
 
-.container[data-view="ui"] {
+#app-wrapper[data-view="ui"] .container {
     grid-template-columns: 0fr 1fr;
 }
 
-.container[data-view="ui"] .chat-section {
+#app-wrapper[data-view="ui"] .chat-section {
     overflow: hidden;
     opacity: 0;
     pointer-events: none;
@@ -59,10 +76,6 @@ body {
 
 /* Header */
 .header {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
     padding: 1.5rem 2.5rem;
     display: flex;
     justify-content: space-between;
@@ -71,6 +84,7 @@ body {
     z-index: 100;
     border-bottom: 1px solid var(--border-color);
     gap: 1rem;
+    flex-shrink: 0;
 }
 
 /* View toggle buttons */

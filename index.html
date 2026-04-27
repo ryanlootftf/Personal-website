@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="/styles/sections.css">
 </head>
 <body>
+    <div id="app-wrapper">
     <div class="header">
         <div class="logo">◆ AI.PORTFOLIO</div>
         <div class="view-toggles">
@@ -55,11 +56,12 @@
             </div>
         </div>
     </div>
+    </div>
 
     <script>
         // View toggle — handles Chat / Split / UI modes
         window.addEventListener('DOMContentLoaded', () => {
-            const container = document.querySelector('.container');
+            const wrapper = document.getElementById('app-wrapper');
             const btns = document.querySelectorAll('.view-btn');
 
             btns.forEach(btn => {
@@ -71,8 +73,8 @@
                     btns.forEach(b => b.classList.remove('active'));
                     btn.classList.add('active');
 
-                    // Set view on container
-                    container.setAttribute('data-view', view);
+                    // Set view on wrapper (controls both header centering and panel collapse)
+                    wrapper.setAttribute('data-view', view);
                 });
             });
         });

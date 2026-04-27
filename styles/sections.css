@@ -1,10 +1,9 @@
 /* Content Panel */
 .content-panel {
-    padding: 7rem 2.5rem 2.5rem;
+    padding: 2rem 2.5rem 2.5rem;
     background: var(--bg-secondary);
     overflow-y: auto;
     position: relative;
-    height: 100vh;
     scroll-behavior: smooth;
 }
 
@@ -427,13 +426,13 @@
 /* Responsive */
 @media (max-width: 1024px) {
     .content-panel {
-        padding: 5rem 2rem 2rem;
+        padding: 2rem 2rem 2rem;
     }
 }
 
 @media (max-width: 768px) {
     .content-panel {
-        padding: 5rem 1.5rem 1.5rem;
+        padding: 1.5rem 1.5rem 1.5rem;
     }
 
     .section-title {

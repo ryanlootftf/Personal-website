@@ -1,6 +1,6 @@
 /* Chat Section */
 .chat-section {
-    padding: 5rem 2.5rem 0;
+    padding: 1.5rem 2.5rem 0;
     border-right: 1px solid var(--border-color);
     display: flex;
     flex-direction: column;
@@ -274,7 +274,7 @@
 
 @media (max-width: 768px) {
     .chat-section {
-        padding: 5rem 1.5rem 1.5rem;
+        padding: 1.5rem 1.5rem 1.5rem;
     }
 
     .chat-title {
