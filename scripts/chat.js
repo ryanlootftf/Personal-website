@@ -5,7 +5,7 @@
 
 import { sendChatMessage, loadSystemPrompt } from './api.js';
 import { getPortfolioData, getConfigData } from './data-loader.js';
-import { scrollToSection, registerSections } from './scroll-control.js';
+import { scrollToSection, scrollToElement, registerSections } from './scroll-control.js';
 
 /** @type {Array<{role:string,content:string}>} */
 let messageHistory = [];
@@ -180,18 +180,30 @@ async function handleSend() {
     // Remove typing indicator
     removeTypingIndicator();
 
-    // Run hallucination detection on the response
-    let displayResponse = response;
-    if (detectHallucinations(response)) {
+    // Try to navigate based on the AI's navigation tag
+    const { cleanResponse, navSection, navElement } = parseNavigationTag(response);
+
+    // Run hallucination detection on the cleaned response
+    let displayResponse = cleanResponse;
+    if (detectHallucinations(cleanResponse)) {
       displayResponse += '\n\n*Note: Some implementation details were not specified in the portfolio data. Please refer to the portfolio section for verified information.*';
     }
 
-    // Add AI response
+    // Add AI response (tag stripped from display)
     addMessage('ai', displayResponse);
     messageHistory.push({ role: 'assistant', content: response });
-
-    // Try to navigate based on content keywords
-    navigateToRelevantSection(response);
+    if (navSection) {
+      setTimeout(() => {
+        if (navElement) {
+          scrollToElement(navSection, navElement);
+        } else {
+          scrollToSection(navSection);
+        }
+      }, 300);
+    } else {
+      // Fall back to keyword-based navigation
+      navigateToRelevantSection(response);
+    }
   } catch (err) {
     console.error('Chat error:', err);
     removeTypingIndicator();
@@ -307,6 +319,26 @@ function scrollChatToBottom() {
   if (container) {
     container.scrollTop = container.scrollHeight;
   }
+}
+
+/**
+ * Parse a navigation tag from the AI response.
+ * Format: [navigate:sectionId] or [navigate:sectionId:elementId]
+ * Returns the cleaned response (with tag stripped) and the nav params.
+ * @param {string} text
+ * @returns {{cleanResponse:string, navSection:string|null, navElement:string|null}}
+ */
+function parseNavigationTag(text) {
+  const match = text.match(/\[navigate:([a-z-]+)(?::([a-z0-9-]+))?\]/i);
+  if (!match) {
+    return { cleanResponse: text, navSection: null, navElement: null };
+  }
+
+  const navSection = match[1].toLowerCase();
+  const navElement = match[2] || null;
+  const cleanResponse = text.replace(match[0], '').trim();
+
+  return { cleanResponse, navSection, navElement };
 }
 
 /**

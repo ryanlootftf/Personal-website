@@ -48,6 +48,41 @@ export function renderPortfolio(data) {
   sections.forEach(el => panel.appendChild(el));
 }
 
+/* ---------- Utility ---------- */
+
+function createSection(id, label, title) {
+  const div = document.createElement('div');
+  div.className = 'panel-section';
+  div.dataset.sectionId = id;
+
+  if (label) {
+    const labelEl = document.createElement('div');
+    labelEl.className = 'section-label';
+    labelEl.textContent = label;
+    div.appendChild(labelEl);
+  }
+
+  if (title) {
+    const titleEl = document.createElement('h2');
+    titleEl.className = 'section-title';
+    titleEl.textContent = title;
+    div.appendChild(titleEl);
+  }
+
+  return div;
+}
+
+/**
+ * Convert a string to a URL-safe slug for use as an element ID.
+ * "DevOps Automation Suite" -> "devops-automation-suite"
+ */
+function slugify(text) {
+  return text
+    .toLowerCase()
+    .replace(/\s+/g, '-')
+    .replace(/[^a-z0-9-]/g, '');
+}
+
 /* ---------- Individual section renderers ---------- */
 
 function renderHero(personal) {
@@ -114,6 +149,7 @@ function renderExperience(experiences) {
   experiences.forEach(exp => {
     const item = document.createElement('div');
     item.className = 'experience-item';
+    item.setAttribute('data-element-id', slugify(exp.company));
 
     const duration = document.createElement('span');
     duration.className = 'duration';
@@ -174,6 +210,7 @@ function renderProjects(projects) {
   projects.forEach(proj => {
     const card = document.createElement('div');
     card.className = 'project-card';
+    card.setAttribute('data-element-id', slugify(proj.title));
     if (proj.featured) card.classList.add('featured');
 
     const title = document.createElement('h3');
@@ -362,28 +399,4 @@ function renderContact(contact) {
 
   section.appendChild(linksDiv);
   return section;
-}
-
-/* ---------- Utility ---------- */
-
-function createSection(id, label, title) {
-  const div = document.createElement('div');
-  div.className = 'panel-section';
-  div.dataset.sectionId = id;
-
-  if (label) {
-    const labelEl = document.createElement('div');
-    labelEl.className = 'section-label';
-    labelEl.textContent = label;
-    div.appendChild(labelEl);
-  }
-
-  if (title) {
-    const titleEl = document.createElement('h2');
-    titleEl.className = 'section-title';
-    titleEl.textContent = title;
-    div.appendChild(titleEl);
-  }
-
-  return div;
 }

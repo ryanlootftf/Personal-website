@@ -1,6 +1,6 @@
 {
   "personal": {
-    "name": "Ryan Johnson",
+    "name": "Ryan Loo Tuck Fatt",
     "title": "Full Stack Developer & AI Enthusiast",
     "tagline": "Building intelligent, scalable web experiences with modern technology stacks.",
     "avatar": null,
@@ -21,7 +21,14 @@
         "Reduced deployment time by 70% with custom CI/CD automation",
         "Led migration from monolith to microservices, improving uptime to 99.9%"
       ],
-      "tech": ["React", "Node.js", "Python", "AWS", "Docker", "Kubernetes"]
+      "tech": [
+        "React",
+        "Node.js",
+        "Python",
+        "AWS",
+        "Docker",
+        "Kubernetes"
+      ]
     },
     {
       "role": "Full Stack Developer",
@@ -33,7 +40,14 @@
         "Integrated Stripe payment processing handling $2M+ in transactions",
         "Implemented comprehensive testing suite achieving 95% code coverage"
       ],
-      "tech": ["React", "TypeScript", "MongoDB", "Stripe", "Redis", "GraphQL"]
+      "tech": [
+        "React",
+        "TypeScript",
+        "MongoDB",
+        "Stripe",
+        "Redis",
+        "GraphQL"
+      ]
     },
     {
       "role": "Frontend Developer",
@@ -45,7 +59,13 @@
         "Improved Core Web Vitals scores by 45% through performance optimization",
         "Mentored 3 junior developers through structured onboarding program"
       ],
-      "tech": ["React", "Vue.js", "Sass", "Jest", "Webpack"]
+      "tech": [
+        "React",
+        "Vue.js",
+        "Sass",
+        "Jest",
+        "Webpack"
+      ]
     }
   ],
   "projects": [
@@ -58,7 +78,14 @@
         "Real-time streaming with WebSocket architecture",
         "Interactive D3.js visualizations with 60fps rendering"
       ],
-      "tech": ["React", "Python", "TensorFlow", "D3.js", "WebSocket", "PostgreSQL"],
+      "tech": [
+        "React",
+        "Python",
+        "TensorFlow",
+        "D3.js",
+        "WebSocket",
+        "PostgreSQL"
+      ],
       "featured": true,
       "links": {
         "live": null,
@@ -74,7 +101,14 @@
         "Real-time inventory management across 10K+ SKUs",
         "Integrated Stripe Connect for marketplace payments"
       ],
-      "tech": ["Node.js", "MongoDB", "Stripe", "React", "Redis", "Docker"],
+      "tech": [
+        "Node.js",
+        "MongoDB",
+        "Stripe",
+        "React",
+        "Redis",
+        "Docker"
+      ],
       "featured": true,
       "links": {
         "live": null,
@@ -90,7 +124,13 @@
         "Real-time sync across devices with offline support",
         "Custom charting library for progress visualization"
       ],
-      "tech": ["React Native", "Firebase", "TensorFlow Lite", "Charts", "Node.js"],
+      "tech": [
+        "React Native",
+        "Firebase",
+        "TensorFlow Lite",
+        "Charts",
+        "Node.js"
+      ],
       "featured": false,
       "links": {
         "live": null,
@@ -106,7 +146,14 @@
         "Custom monitoring dashboard with real-time alerts",
         "Slack integration for deployment notifications"
       ],
-      "tech": ["Docker", "Kubernetes", "AWS", "Terraform", "GitHub Actions", "Prometheus"],
+      "tech": [
+        "Docker",
+        "Kubernetes",
+        "AWS",
+        "Terraform",
+        "GitHub Actions",
+        "Prometheus"
+      ],
       "featured": false,
       "links": {
         "live": null,
@@ -115,11 +162,45 @@
     }
   ],
   "skills": {
-    "languages": ["JavaScript", "TypeScript", "Python", "Go", "SQL", "HTML/CSS"],
-    "frameworks": ["React", "Vue.js", "Node.js", "Express", "Next.js", "FastAPI"],
-    "databases": ["PostgreSQL", "MongoDB", "Redis", "Elasticsearch", "Firebase"],
-    "cloud": ["AWS", "GCP", "Docker", "Kubernetes", "Terraform", "GitHub Actions"],
-    "ai_ml": ["TensorFlow", "PyTorch", "LangChain", "OpenAI API", "Hugging Face", "RAG"]
+    "languages": [
+      "JavaScript",
+      "TypeScript",
+      "Python",
+      "Go",
+      "SQL",
+      "HTML/CSS"
+    ],
+    "frameworks": [
+      "React",
+      "Vue.js",
+      "Node.js",
+      "Express",
+      "Next.js",
+      "FastAPI"
+    ],
+    "databases": [
+      "PostgreSQL",
+      "MongoDB",
+      "Redis",
+      "Elasticsearch",
+      "Firebase"
+    ],
+    "cloud": [
+      "AWS",
+      "GCP",
+      "Docker",
+      "Kubernetes",
+      "Terraform",
+      "GitHub Actions"
+    ],
+    "ai_ml": [
+      "TensorFlow",
+      "PyTorch",
+      "LangChain",
+      "OpenAI API",
+      "Hugging Face",
+      "RAG"
+    ]
   },
   "education": [
     {

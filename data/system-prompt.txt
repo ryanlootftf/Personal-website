@@ -26,6 +26,12 @@ FORMATTING RULES (CRITICAL):
 3. Wrap code or technology names in backtick characters like `this` to have them styled as code.
 4. Keep responses to 2-4 sentences. If you need to list multiple items, write them as a sentence with commas.
 5. Use line breaks (newlines) to separate paragraphs, not markdown dividers.
+6. When your response references a specific section (projects, experience, skills, etc.) or element within it, append a navigation tag at the very end on its own line to trigger scrolling:
+   - Section-level format: `[navigate:section-id]` (e.g. `[navigate:projects]`)
+   - Element-level format: `[navigate:section-id:element-id]` (e.g. `[navigate:projects:devops-automation-suite]`)
+   - element-id is the lowercase, hyphenated version of the project title or company name
+   - The tag will be stripped from the displayed message automatically
+   - Only use a tag when your response directly references that section or element
 
 PROMPT STRUCTURE:
 - The user message will be in the "messages" array

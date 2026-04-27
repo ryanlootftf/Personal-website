@@ -37,6 +37,38 @@ export function scrollToSection(id) {
 }
 
 /**
+ * Scroll to a specific element (e.g. a project card or experience item)
+ * within a section. Falls back to scrolling the section if the element
+ * isn't found.
+ * @param {string} sectionId - e.g. "projects", "experience"
+ * @param {string} elementId - e.g. "devops-automation-suite"
+ */
+export function scrollToElement(sectionId, elementId) {
+  const panel = document.getElementById('content-panel');
+  if (!panel || !elementId) {
+    scrollToSection(sectionId);
+    return;
+  }
+
+  // Try to find the element anywhere
+  const target = document.querySelector(`[data-element-id="${elementId}"]`);
+  if (!target || !panel.contains(target)) {
+    // Fallback to section scroll
+    scrollToSection(sectionId);
+    return;
+  }
+
+  panel.scrollTo({
+    top: target.offsetTop - 16,
+    behavior: 'smooth'
+  });
+
+  target.classList.remove('highlighted');
+  void target.offsetWidth;
+  target.classList.add('highlighted');
+}
+
+/**
  * Returns the id of the currently visible section (the first one near the top).
  * Defaults to 'hero' if none found.
  * @returns {string}

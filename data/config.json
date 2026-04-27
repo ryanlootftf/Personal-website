@@ -5,13 +5,34 @@
     "theme": "dark"
   },
   "sections": [
-    { "id": "hero", "enabled": true },
-    { "id": "about", "enabled": true },
-    { "id": "experience", "enabled": true },
-    { "id": "projects", "enabled": true },
-    { "id": "skills", "enabled": true },
-    { "id": "education", "enabled": true },
-    { "id": "contact", "enabled": true }
+    {
+      "id": "hero",
+      "enabled": true
+    },
+    {
+      "id": "about",
+      "enabled": true
+    },
+    {
+      "id": "experience",
+      "enabled": true
+    },
+    {
+      "id": "projects",
+      "enabled": true
+    },
+    {
+      "id": "skills",
+      "enabled": true
+    },
+    {
+      "id": "education",
+      "enabled": true
+    },
+    {
+      "id": "contact",
+      "enabled": true
+    }
   ],
   "suggestedPrompts": [
     "What projects have you worked on?",
