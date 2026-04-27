@@ -1,8 +1,8 @@
 {
   "site": {
-    "title": "AI Portfolio - Interactive Experience",
-    "description": "AI-powered portfolio website with chat interface",
-    "logoText": "RYAN LOO",
+    "title": "Ryan's Website",
+    "description": "Ryan's AI-powered portfolio website with chat interface",
+    "logoText": "RYAN.LOO",
     "theme": "dark"
   },
   "sections": [{
