@@ -1,8 +1,8 @@
 /**
  * Vercel Serverless Function: /api/chat
  *
- * Primary:   NVIDIA Nim API (nvidia_nim/nvidia/nemotron-4-340b-instruct)
- * Fallback:  OpenRouter (meta/llama-3.1-405b-instruct)
+ * Primary:   NVIDIA Nim API (stepfun-ai/step-3.5-flash)
+ * Fallback:  OpenRouter (minimax/minimax-m2.5:free)
  *
  * Environment Variables:
  *   NVIDIA_API_KEY      - API key for NVIDIA Nim
@@ -91,15 +91,21 @@ async function callNVIDIA(messages, model, temperature, max_tokens) {
     baseURL: NVIDIA_BASE_URL,
   });
 
-  const completion = await nvidia.chat.completions.create({
-    model: model || 'stepfun-ai/step-3.5-flash',
-    messages,
-    temperature: temperature ?? 1,
-    top_p: 0.9,
-    max_tokens: max_tokens ?? 16384
-  });
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), 25000);
 
-  return completion.choices?.[0]?.message?.content || '';
+  try {
+    const completion = await nvidia.chat.completions.create({
+      model: model || 'stepfun-ai/step-3.5-flash',
+      messages,
+      temperature: temperature ?? 1,
+      top_p: 0.9,
+      max_tokens: max_tokens ?? 2048
+    });
+    return completion.choices?.[0]?.message?.content || '';
+  } finally {
+    clearTimeout(timeoutId);
+  }
 }
 
 // ---- OpenRouter Fallback ----
@@ -110,7 +116,7 @@ async function callOpenRouter(messages, model, temperature, max_tokens) {
   const url = `${OPENROUTER_BASE_URL}/chat/completions`;
 
   const body = {
-    model: model || 'meta/llama-3.1-405b-instruct',
+    model: model || 'minimax/minimax-m2.5:free',
     messages,
     temperature: temperature ?? 0.7,
     max_tokens: max_tokens ?? 1024

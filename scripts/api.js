@@ -4,7 +4,7 @@
  */
 
 const API_ENDPOINT = '/api/chat';
-const TIMEOUT_MS = 25000;
+const TIMEOUT_MS = 15000;
 
 /**
  * Send a message history to the API and get an AI response.
@@ -21,7 +21,7 @@ export async function sendChatMessage(messages, portfolioData, configData) {
     const body = {
       messages,
       portfolio: portfolioData,
-      model: configData?.ai?.model || 'meta/llama-3.1-405b-instruct',
+      model: configData?.ai?.model || 'minimax/minimax-m2.5:free',
       temperature: configData?.ai?.temperature ?? 0.7,
       max_tokens: configData?.ai?.max_tokens ?? 1024
     };
