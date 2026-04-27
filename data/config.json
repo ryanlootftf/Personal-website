@@ -2,7 +2,7 @@
   "site": {
     "title": "AI Portfolio - Interactive Experience",
     "description": "AI-powered portfolio website with chat interface",
-    "logoText": "RYAN.LOO",
+    "logoText": "RYAN LOO",
     "theme": "dark"
   },
   "sections": [{
@@ -29,8 +29,15 @@
   }],
   "suggestedPrompts": ["What projects have you worked on?", "Tell me about your experience", "What are your skills?", "How can I contact you?"],
   "ai": {
-    "model": "minimax/minimax-m2.5:free",
-    "temperature": 0.7,
-    "max_tokens": 1024
+    "nvidia": {
+      "model": "stepfun-ai/step-3.5-flash",
+      "temperature": 1,
+      "max_tokens": 2048
+    },
+    "openrouter": {
+      "model": "minimax/minimax-m2.5:free",
+      "temperature": 0.7,
+      "max_tokens": 1024
+    }
   }
 }

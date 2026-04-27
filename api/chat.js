@@ -6,6 +6,10 @@
  *   - 'openrouter' → tries only OpenRouter
  *   - omitted      → tries NVIDIA first, falls back to OpenRouter (backwards compat)
  *
+ * Per-provider model config can be passed in `nvidiaConfig` and `openrouterConfig`
+ * objects with `model`, `temperature`, `max_tokens`. Falls back to top-level
+ * `model`, `temperature`, `max_tokens` for backwards compatibility.
+ *
  * Each invocation has a 28s AbortController (just under Vercel's 30s hard limit).
  * No server-side retries — client handles retries via fresh invocations.
  *
@@ -108,7 +112,7 @@ function buildSystemMessage(portfolio) {
 }
 
 // ---- NVIDIA Nim API (via OpenAI SDK) ----
-async function callNVIDIA(messages, model, temperature, max_tokens) {
+async function callNVIDIA(messages, nvidiaConfig) {
   const apiKey = process.env.NVIDIA_API_KEY;
   if (!apiKey) throw new Error('NVIDIA_API_KEY not configured');
 
@@ -124,11 +128,11 @@ async function callNVIDIA(messages, model, temperature, max_tokens) {
 
   try {
     const completion = await nvidia.chat.completions.create({
-      model: model || 'stepfun-ai/step-3.5-flash',
+      model: nvidiaConfig?.model || 'stepfun-ai/step-3.5-flash',
       messages,
-      temperature: temperature ?? 1,
+      temperature: nvidiaConfig?.temperature ?? 1,
       top_p: 0.9,
-      max_tokens: max_tokens ?? 2048
+      max_tokens: nvidiaConfig?.max_tokens ?? 2048
     });
     const content = completion.choices?.[0]?.message?.content || '';
     console.log('✅ NVIDIA Nim responded successfully');
@@ -142,7 +146,7 @@ async function callNVIDIA(messages, model, temperature, max_tokens) {
 }
 
 // ---- OpenRouter Fallback ----
-async function callOpenRouter(messages, model, temperature, max_tokens) {
+async function callOpenRouter(messages, openrouterConfig) {
   const apiKey = process.env.OPENROUTER_API_KEY;
   if (!apiKey) throw new Error('OPENROUTER_API_KEY not configured');
 
@@ -155,10 +159,10 @@ async function callOpenRouter(messages, model, temperature, max_tokens) {
     const url = `${OPENROUTER_BASE_URL}/chat/completions`;
 
     const body = {
-      model: model || 'minimax/minimax-m2.5:free',
+      model: openrouterConfig?.model || 'minimax/minimax-m2.5:free',
       messages,
-      temperature: temperature ?? 0.7,
-      max_tokens: max_tokens ?? 1024
+      temperature: openrouterConfig?.temperature ?? 0.7,
+      max_tokens: openrouterConfig?.max_tokens ?? 1024
     };
 
     const res = await fetch(url, {
@@ -209,7 +213,7 @@ export default async function handler(req, res) {
     return;
   }
 
-  const { messages, portfolio, model, temperature, max_tokens, provider } = req.body || {};
+  const { messages, portfolio, nvidiaConfig, openrouterConfig } = req.body || {};
 
   if (!messages || !Array.isArray(messages) || messages.length === 0) {
     res.status(400).json({ error: 'Invalid or missing messages array' });
@@ -226,50 +230,22 @@ export default async function handler(req, res) {
   let usedProvider = 'none';
   let error = null;
 
-  if (provider === 'nvidia') {
-    // Client requested NVIDIA only (part of retry sequence)
-    if (!process.env.NVIDIA_API_KEY) {
-      res.status(400).json({ error: 'NVIDIA_API_KEY not configured on server' });
-      return;
-    }
+  // NVIDIA first (primary), OpenRouter fallback
+  if (process.env.NVIDIA_API_KEY) {
     try {
-      // Don't pass client's model — use NVIDIA default (stepfun-ai/step-3.5-flash)
-      response = await callNVIDIA(fullMessages, null, temperature, max_tokens);
+      response = await callNVIDIA(fullMessages, nvidiaConfig);
       usedProvider = 'nvidia';
     } catch (err) {
-      error = err.message;
+      error = `NVIDIA: ${err.message}`;
     }
-  } else if (provider === 'openrouter') {
-    // Client requested OpenRouter only (part of retry sequence)
-    if (!process.env.OPENROUTER_API_KEY) {
-      res.status(400).json({ error: 'OPENROUTER_API_KEY not configured on server' });
-      return;
-    }
+  }
+
+  if (!response && process.env.OPENROUTER_API_KEY) {
     try {
-      response = await callOpenRouter(fullMessages, model, temperature, max_tokens);
+      response = await callOpenRouter(fullMessages, openrouterConfig);
       usedProvider = 'openrouter';
     } catch (err) {
-      error = err.message;
-    }
-  } else {
-    // Legacy/no provider specified — NVIDIA first, fallback OpenRouter
-    if (process.env.NVIDIA_API_KEY) {
-      try {
-        // Don't pass client's model — use NVIDIA default (stepfun-ai/step-3.5-flash)
-        response = await callNVIDIA(fullMessages, null, temperature, max_tokens);
-        usedProvider = 'nvidia';
-      } catch (err) {
-        error = `NVIDIA: ${err.message}`;
-      }
-    }
-
-    if (!response && process.env.OPENROUTER_API_KEY) {
-      try {
-        response = await callOpenRouter(fullMessages, model, temperature, max_tokens);
-        usedProvider = 'openrouter';
-      } catch (err) {
-        error = (error ? `${error} | ` : '') + `OpenRouter: ${err.message}`;
-      }
+      error = (error ? `${error} | ` : '') + `OpenRouter: ${err.message}`;
     }
   }
 

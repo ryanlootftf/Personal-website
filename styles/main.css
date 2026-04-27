@@ -218,6 +218,27 @@ body {
         grid-template-columns: 1fr;
         grid-template-rows: 50% 50%;
     }
+
+    /* Split view — UI on top, chat on bottom */
+    #app-wrapper[data-view="split"] .content-panel {
+        order: -1;
+    }
+
+    /* Chat-only view — fullscreen on mobile */
+    #app-wrapper[data-view="chat"] {
+        max-width: 100vw;
+    }
+    #app-wrapper[data-view="chat"] .container {
+        grid-template-rows: 1fr 0fr;
+    }
+
+    /* UI-only view — fullscreen on mobile */
+    #app-wrapper[data-view="ui"] {
+        max-width: 100vw;
+    }
+    #app-wrapper[data-view="ui"] .container {
+        grid-template-rows: 0fr 1fr;
+    }
 }
 
 @media (max-width: 768px) {

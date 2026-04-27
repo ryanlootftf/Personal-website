@@ -77,12 +77,20 @@ async function attemptProviderCall(body, provider) {
  * @returns {Promise<string>} the AI's response text
  */
 export async function sendChatMessage(messages, portfolioData, configData) {
+  const ai = configData?.ai || {};
   const baseBody = {
     messages,
     portfolio: portfolioData,
-    model: configData?.ai?.model || 'minimax/minimax-m2.5:free',
-    temperature: configData?.ai?.temperature ?? 0.7,
-    max_tokens: configData?.ai?.max_tokens ?? 1024
+    nvidiaConfig: ai.nvidia || {
+      model: 'stepfun-ai/step-3.5-flash',
+      temperature: 1,
+      max_tokens: 2048
+    },
+    openrouterConfig: ai.openrouter || {
+      model: 'minimax/minimax-m2.5:free',
+      temperature: 0.7,
+      max_tokens: 1024
+    }
   };
 
   // Phase 1: NVIDIA (3 attempts, retry only on timeout)
