@@ -14,6 +14,11 @@
 <body>
     <div class="header">
         <div class="logo">◆ AI.PORTFOLIO</div>
+        <div class="view-toggles">
+            <button class="view-btn active" data-view="split">⟷ Split</button>
+            <button class="view-btn" data-view="chat">☰ Chat</button>
+            <button class="view-btn" data-view="ui">☰ UI</button>
+        </div>
         <div class="status">
             <div class="status-dot"></div>
             <span>System Active</span>
@@ -50,6 +55,28 @@
             </div>
         </div>
     </div>
+
+    <script>
+        // View toggle — handles Chat / Split / UI modes
+        window.addEventListener('DOMContentLoaded', () => {
+            const container = document.querySelector('.container');
+            const btns = document.querySelectorAll('.view-btn');
+
+            btns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const view = btn.dataset.view;
+                    if (!view) return;
+
+                    // Update active button
+                    btns.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+
+                    // Set view on container
+                    container.setAttribute('data-view', view);
+                });
+            });
+        });
+    </script>
 
     <script type="module" src="/scripts/data-loader.js"></script>
     <script type="module" src="/scripts/renderer.js"></script>

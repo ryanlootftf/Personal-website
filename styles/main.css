@@ -31,6 +31,30 @@ body {
     position: relative;
     z-index: 1;
     gap: 0;
+    transition: grid-template-columns 0.35s ease, grid-template-rows 0.35s ease;
+}
+
+/* Collapsed views */
+.container[data-view="chat"] {
+    grid-template-columns: 1fr 0fr;
+}
+
+.container[data-view="chat"] .content-panel {
+    overflow: hidden;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s ease;
+}
+
+.container[data-view="ui"] {
+    grid-template-columns: 0fr 1fr;
+}
+
+.container[data-view="ui"] .chat-section {
+    overflow: hidden;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s ease;
 }
 
 /* Header */
@@ -46,6 +70,39 @@ body {
     background: var(--bg-primary);
     z-index: 100;
     border-bottom: 1px solid var(--border-color);
+    gap: 1rem;
+}
+
+/* View toggle buttons */
+.view-toggles {
+    display: flex;
+    gap: 0.25rem;
+    background: var(--bg-tertiary);
+    border-radius: 8px;
+    padding: 3px;
+}
+
+.view-btn {
+    background: transparent;
+    border: none;
+    color: var(--text-muted);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.75rem;
+    padding: 0.35rem 0.75rem;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+}
+
+.view-btn:hover {
+    color: var(--text-secondary);
+}
+
+.view-btn.active {
+    background: var(--bg-primary);
+    color: var(--accent-primary);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
 }
 
 .logo {
