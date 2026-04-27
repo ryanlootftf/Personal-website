@@ -213,7 +213,8 @@ export default async function handler(req, res) {
       return;
     }
     try {
-      response = await callNVIDIA(fullMessages, model, temperature, max_tokens);
+      // Don't pass client's model — use NVIDIA default (stepfun-ai/step-3.5-flash)
+      response = await callNVIDIA(fullMessages, null, temperature, max_tokens);
       usedProvider = 'nvidia';
     } catch (err) {
       error = err.message;
@@ -234,7 +235,8 @@ export default async function handler(req, res) {
     // Legacy/no provider specified — NVIDIA first, fallback OpenRouter
     if (process.env.NVIDIA_API_KEY) {
       try {
-        response = await callNVIDIA(fullMessages, model, temperature, max_tokens);
+        // Don't pass client's model — use NVIDIA default (stepfun-ai/step-3.5-flash)
+        response = await callNVIDIA(fullMessages, null, temperature, max_tokens);
         usedProvider = 'nvidia';
       } catch (err) {
         error = `NVIDIA: ${err.message}`;
@@ -252,6 +254,8 @@ export default async function handler(req, res) {
   }
 
   if (!response) {
+    const msg = `AI provider unavailable: ${error || 'Provider not configured. Set NVIDIA_API_KEY or OPENROUTER_API_KEY.'}`;
+    console.warn(`⚠️ ${msg}`);
     res.status(503).json({
       error: 'AI provider unavailable',
       details: error || 'Provider not configured. Set NVIDIA_API_KEY or OPENROUTER_API_KEY.'
@@ -259,5 +263,6 @@ export default async function handler(req, res) {
     return;
   }
 
+  console.log(`✅ Response from ${usedProvider} (${response.length} chars)`);
   res.json({ response, provider: usedProvider });
 }
