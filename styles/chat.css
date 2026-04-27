@@ -77,10 +77,7 @@
 .message code {
     font-family: 'IBM Plex Mono', monospace;
     font-size: 0.82em;
-    background: rgba(0, 255, 159, 0.08);
-    border: 1px solid rgba(0, 255, 159, 0.15);
-    border-radius: 3px;
-    padding: 0.1em 0.35em;
+    font-weight: 600;
     color: var(--accent-primary);
 }
 
