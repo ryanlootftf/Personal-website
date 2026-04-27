@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Portfolio - Interactive Experience</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/styles/main.css">
+    <link rel="stylesheet" href="/styles/chat.css">
+    <link rel="stylesheet" href="/styles/sections.css">
+</head>
+<body>
+    <div class="header">
+        <div class="logo">◆ AI.PORTFOLIO</div>
+        <div class="status">
+            <div class="status-dot"></div>
+            <span>System Active</span>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Chat Panel (Left) -->
+        <div class="chat-section">
+            <div class="chat-header">
+                <h1 class="chat-title">Ask me anything about my work</h1>
+                <p class="chat-subtitle">I'm powered by AI and can answer questions about my experience, projects, and skills.</p>
+            </div>
+
+            <div class="suggested-prompts" id="suggested-prompts">
+                <!-- Dynamically populated from portfolio data -->
+            </div>
+
+            <div class="chat-messages" id="chat-messages">
+                <!-- Initial AI greeting populated by chat.js -->
+            </div>
+
+            <div class="chat-input-container">
+                <textarea class="chat-input" id="chat-input" placeholder="Type your question here..." rows="1"></textarea>
+                <button class="send-button" id="send-btn"></button>
+            </div>
+        </div>
+
+        <!-- Content Panel (Right) - Dynamically populated -->
+        <div class="content-panel" id="content-panel">
+            <div class="loading" id="loading">
+                <div class="loading-spinner"></div>
+                <p>Loading portfolio...</p>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="/scripts/data-loader.js"></script>
+    <script type="module" src="/scripts/renderer.js"></script>
+    <script type="module" src="/scripts/scroll-control.js"></script>
+    <script type="module" src="/scripts/api.js"></script>
+    <script type="module" src="/scripts/chat.js"></script>
+    <script type="module">
+        import { loadAndRender } from './scripts/data-loader.js';
+        import { initChat, addWelcomeMessage } from './scripts/chat.js';
+
+        window.addEventListener('DOMContentLoaded', async () => {
+            const result = await loadAndRender();
+            if (result) {
+                addWelcomeMessage();
+                initChat();
+            }
+        });
+    </script>
+</body>
+</html>
