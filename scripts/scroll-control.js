@@ -6,6 +6,31 @@
 let sectionElements = [];
 
 /**
+ * Animate scrolling of a container from its current position to a target position.
+ * Uses requestAnimationFrame for smooth, controllable scrolling.
+ * @param {HTMLElement} container - The scrollable element
+ * @param {number} targetTop - The target scrollTop value
+ * @param {number} [duration=500] - Duration in milliseconds
+ */
+export function animateScroll(container, targetTop, duration = 500) {
+  const startTop = container.scrollTop;
+  const distance = targetTop - startTop;
+  const startTime = performance.now();
+
+  function step(currentTime) {
+    const elapsed = currentTime - startTime;
+    const progress = Math.min(elapsed / duration, 1);
+    // Ease-out cubic for a natural deceleration
+    const ease = 1 - Math.pow(1 - progress, 3);
+    container.scrollTop = startTop + distance * ease;
+    if (progress < 1) {
+      requestAnimationFrame(step);
+    }
+  }
+  requestAnimationFrame(step);
+}
+
+/**
  * After rendering, call this to register sections for scroll control.
  */
 export function registerSections() {
@@ -24,10 +49,7 @@ export function scrollToSection(id) {
   const target = document.querySelector(`.panel-section[data-section-id="${id}"]`);
   if (!target || !panel) return;
 
-  panel.scrollTo({
-    top: target.offsetTop - 16, // small padding
-    behavior: 'smooth'
-  });
+  animateScroll(panel, target.offsetTop - 16, 500);
 
   // Flash highlight animation
   target.classList.remove('highlighted');
@@ -58,10 +80,7 @@ export function scrollToElement(sectionId, elementId) {
     return;
   }
 
-  panel.scrollTo({
-    top: target.offsetTop - 16,
-    behavior: 'smooth'
-  });
+  animateScroll(panel, target.offsetTop - 16, 500);
 
   target.classList.remove('highlighted');
   void target.offsetWidth;

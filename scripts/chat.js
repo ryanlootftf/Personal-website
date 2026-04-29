@@ -5,7 +5,7 @@
 
 import { sendChatMessage, loadSystemPrompt } from './api.js';
 import { getPortfolioData, getConfigData } from './data-loader.js';
-import { scrollToSection, scrollToElement, registerSections } from './scroll-control.js';
+import { scrollToSection, scrollToElement, registerSections, animateScroll } from './scroll-control.js';
 
 /** @type {Array<{role:string,content:string}>} */
 let messageHistory = [];
@@ -317,7 +317,7 @@ function removeTypingIndicator() {
 function scrollChatToBottom() {
   const container = document.getElementById('chat-messages');
   if (container) {
-    container.scrollTop = container.scrollHeight;
+    animateScroll(container, container.scrollHeight, 400);
   }
 }
 
