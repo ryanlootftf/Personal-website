@@ -35,54 +35,21 @@
   "projects": [{
     "title": "AGM Meeting Tracker",
     "tagline": "AGM/EGM Tracking Platform",
-    "description": "Investor-focused AGM/EGM tracking platform for Bursa Malaysia shareholders, providing up-to-date meeting information including dates, times, locations, and direct links for hybrid/virtual meetings. Designed to reduce information clutter through portfolio-based filtering and responsive calendar views.",
-    "highlights": ["Automated AGM/EGM data synchronization for up-to-date shareholder meeting information", "Built responsive desktop/mobile calendar views for shareholder event tracking", "Implemented fast Bursa Malaysia stock search with portfolio-based filtering", "Integrated Google OAuth authentication and protected user dashboards", "Added hybrid/virtual meeting access links with interactive meeting detail views"],
-    "tech": ["Next.js", "Tailwind CSS", "Supabase", "PostgreSQL", "Python", "Vercel"],
+    "description": "Investor-focused AGM/EGM tracking platform for Bursa Malaysia shareholders, providing up-to-date key informations on upcoming meetings. Designed with responsive and purposeful data presentation in mind.",
+    "highlights": ["Automated AGM/EGM data updates", "Responsive calendar dashboard views", "Bursa Malaysia stock search", "Portfolio-based meeting filtering", "Google OAuth authentication", "Hybrid meeting link integration"],
+    "tech": ["Next.js", "Tailwind CSS", "Supabase", "PostgreSQL", "Python", "Vercel", "OAuth"],
     "featured": true,
     "links": {
       "live": "https://agm-tracker-site.vercel.app/",
       "github": null
     }
-  }, {
-    "title": "E-Commerce Platform",
-    "tagline": "Full-stack marketplace solution",
-    "description": "Full-stack marketplace with payment integration, inventory management, and seller dashboard. Supports multi-vendor operations with real-time inventory sync.",
-    "highlights": ["Multi-vendor architecture with role-based access control", "Real-time inventory management across 10K+ SKUs", "Integrated Stripe Connect for marketplace payments"],
-    "tech": ["Node.js", "MongoDB", "Stripe", "React", "Redis", "Docker"],
-    "featured": true,
-    "links": {
-      "live": null,
-      "github": null
-    }
-  }, {
-    "title": "Mobile Fitness Tracker",
-    "tagline": "Cross-platform health & wellness app",
-    "description": "Cross-platform app for workout tracking, nutrition planning, and progress analytics. Features AI-powered workout recommendations and social features.",
-    "highlights": ["AI-powered workout recommendation engine", "Real-time sync across devices with offline support", "Custom charting library for progress visualization"],
-    "tech": ["React Native", "Firebase", "TensorFlow Lite", "Charts", "Node.js"],
-    "featured": false,
-    "links": {
-      "live": null,
-      "github": null
-    }
-  }, {
-    "title": "DevOps Automation Suite",
-    "tagline": "CI/CD pipeline automation toolkit",
-    "description": "CI/CD pipeline tools with automated testing, deployment, and monitoring capabilities. Features blue-green deployments, automated rollbacks, and Slack integrations.",
-    "highlights": ["Automated blue-green deployment strategy", "Custom monitoring dashboard with real-time alerts", "Slack integration for deployment notifications"],
-    "tech": ["Docker", "Kubernetes", "AWS", "Terraform", "GitHub Actions", "Prometheus"],
-    "featured": false,
-    "links": {
-      "live": null,
-      "github": null
-    }
   }],
   "skills": {
-    "languages": ["JavaScript", "TypeScript", "Python", "Go", "SQL", "HTML/CSS"],
-    "frameworks": ["React", "Vue.js", "Node.js", "Express", "Next.js", "FastAPI"],
-    "databases": ["PostgreSQL", "MongoDB", "Redis", "Elasticsearch", "Firebase"],
-    "cloud": ["AWS", "GCP", "Docker", "Kubernetes", "Terraform", "GitHub Actions"],
-    "ai_ml": ["TensorFlow", "PyTorch", "LangChain", "OpenAI API", "Hugging Face", "RAG"]
+    "languages": ["JavaScript", "Python", "HTML/CSS"],
+    "frameworks": ["React", "Node.js", "Express", "Next.js", "FastAPI"],
+    "databases": ["PostgreSQL", "SQLite"],
+    "cloud": ["AWS", "Docker", "Vercel", "Github"],
+    "ai_ml": ["OpenAI API", "Ollama", "Claude"]
   },
   "education": [{
     "institution": "University of Technology",
