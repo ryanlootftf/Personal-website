@@ -33,14 +33,14 @@
     "tech": ["React", "Vue.js", "Sass", "Jest", "Webpack"]
   }],
   "projects": [{
-    "title": "AI-Powered Analytics Dashboard",
-    "tagline": "Real-time insights with machine learning",
-    "description": "Real-time data visualization platform with machine learning predictions and automated insights. Features customizable dashboards, anomaly detection, and predictive forecasting.",
-    "highlights": ["Built custom ML pipeline for anomaly detection", "Real-time streaming with WebSocket architecture", "Interactive D3.js visualizations with 60fps rendering"],
-    "tech": ["React", "Python", "TensorFlow", "D3.js", "WebSocket", "PostgreSQL"],
+    "title": "AGM Meeting Tracker",
+    "tagline": "AGM/EGM Tracking Platform",
+    "description": "Investor-focused AGM/EGM tracking platform for Bursa Malaysia shareholders, providing up-to-date meeting information including dates, times, locations, and direct links for hybrid/virtual meetings. Designed to reduce information clutter through portfolio-based filtering and responsive calendar views.",
+    "highlights": ["Automated AGM/EGM data synchronization for up-to-date shareholder meeting information", "Built responsive desktop/mobile calendar views for shareholder event tracking", "Implemented fast Bursa Malaysia stock search with portfolio-based filtering", "Integrated Google OAuth authentication and protected user dashboards", "Added hybrid/virtual meeting access links with interactive meeting detail views"],
+    "tech": ["Next.js", "Tailwind CSS", "Supabase", "PostgreSQL", "Python", "Vercel"],
     "featured": true,
     "links": {
-      "live": null,
+      "live": "https://agm-tracker-site.vercel.app/",
       "github": null
     }
   }, {
