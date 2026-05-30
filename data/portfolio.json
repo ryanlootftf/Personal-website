@@ -63,10 +63,10 @@
     "ai_ml": ["OpenAI API", "Ollama", "Claude"]
   },
   "education": [{
-    "institution": "University of Technology",
-    "degree": "B.S. Computer Science",
-    "year": "2015 - 2019",
-    "achievements": ["Dean's List - 4 consecutive semesters", "Senior thesis on distributed systems optimization", "Teaching assistant for Web Development and Algorithms courses"]
+    "institution": "Tunku Abdul Rahman University College",
+    "degree": "Bachelor's Degree in Computer Science (Honours)",
+    "year": "2021",
+    "achievements": ["Honours Degree with Distinction (CGPA: 3.79)", "President's List (2 semesters), Dean's List (4 semesters)"]
   }],
   "contact": {
     "email": "ryan@example.com",
