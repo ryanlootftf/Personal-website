@@ -40,6 +40,17 @@
       "live": "https://enrich-rpg.vercel.app/",
       "github": null
     }
+  }, {
+    "title": "This Portfolio Website",
+    "tagline": "AI-Powered Portfolio Platform with CMS built-in",
+    "description": "A data-driven portfolio management system featuring AI-assisted content discovery and contextual navigation.",
+    "highlights": ["AI-powered contextual navigation", "Dynamic content-driven architecture", "Centralized portfolio management", "Admin dashboard content editing", "Structured AI response workflows"],
+    "tech": ["Next.js", "Tailwin CSS", "JSON", "Vercel", "OpenAI API"],
+    "featured": false,
+    "links": {
+      "live": null,
+      "github": null
+    }
   }],
   "skills": {
     "languages": ["JavaScript", "Python", "HTML/CSS"],
