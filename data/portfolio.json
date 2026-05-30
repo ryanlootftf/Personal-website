@@ -11,26 +11,12 @@
     "bio": "I'm a passionate full-stack developer with expertise in building modern web applications, AI integrations, and cloud-native solutions. I thrive on turning complex problems into elegant, user-friendly experiences."
   },
   "experience": [{
-    "role": "Senior Full Stack Developer",
-    "company": "Tech Innovations Inc.",
-    "duration": "2023 - Present",
-    "description": "Leading development of cloud-native applications using microservices architecture. Mentoring junior developers and driving technical decisions for scalability and performance.",
-    "highlights": ["Architected and deployed a real-time data pipeline processing 10M+ events/day", "Reduced deployment time by 70% with custom CI/CD automation", "Led migration from monolith to microservices, improving uptime to 99.9%"],
-    "tech": ["React", "Node.js", "Python", "AWS", "Docker", "Kubernetes"]
-  }, {
-    "role": "Full Stack Developer",
-    "company": "Digital Solutions Co.",
-    "duration": "2021 - 2023",
-    "description": "Built and maintained multiple client-facing web applications. Implemented RESTful APIs and integrated third-party services for enhanced functionality.",
-    "highlights": ["Built a real-time collaboration platform serving 50K+ users", "Integrated Stripe payment processing handling $2M+ in transactions", "Implemented comprehensive testing suite achieving 95% code coverage"],
-    "tech": ["React", "TypeScript", "MongoDB", "Stripe", "Redis", "GraphQL"]
-  }, {
-    "role": "Frontend Developer",
-    "company": "StartUp Studio",
-    "duration": "2019 - 2021",
-    "description": "Designed and developed responsive user interfaces for various startups. Collaborated with UX designers to create intuitive and accessible web experiences.",
-    "highlights": ["Developed component library used across 5+ client projects", "Improved Core Web Vitals scores by 45% through performance optimization", "Mentored 3 junior developers through structured onboarding program"],
-    "tech": ["React", "Vue.js", "Sass", "Jest", "Webpack"]
+    "role": "Software Developer",
+    "company": "Fujitsu System Global Solutions Management",
+    "duration": "2021 - 2024",
+    "description": "Contributed to full-stack development, focusing on front-end frameworks and PostgreSQL troubleshooting for\nscalable, efficient systems.",
+    "highlights": ["Facilitated migration from legacy browser platforms to modern web environments", "Contributed to .NET web application development aligned with business requirement", "Participated in system testing, maintenance, and issue resolution"],
+    "tech": [".NET", "PostgreSQL", "jQuery", "Bootstrap", "C#"]
   }],
   "projects": [{
     "title": "AGM Meeting Tracker",
