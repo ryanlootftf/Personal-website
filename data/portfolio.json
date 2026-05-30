@@ -47,8 +47,8 @@
     "title": "Enrich.rpg",
     "tagline": "Gamified Self-Improvement Platform",
     "description": "Productivity platform leveraging Next.js, Supabase, and NVIDIA NIM to automate goal planning and progression management. Designed with scalable backend architecture and responsive user experiences in mind.",
-    "highlights": ["AI-powered quest generation", "Server-side data synchronization", "Google OAuth authentication", "Quest and reward management"],
-    "tech": ["Next.js", "Supabase", "PostgreSQL", "TailwindCSS", "NVIDIA NIM", "Google OAuth", "Vercel"],
+    "highlights": ["AI-powered quest generation", "Server-side data synchronization", "Google OAuth authentication", "Quest and reward management", "Responsive dashboard and progress analytics"],
+    "tech": ["Next.js", "Tailwind CSS", "Supabase", "PostgreSQL", "Vercel", "OAuth", "OpenAI API"],
     "featured": true,
     "links": {
       "live": "https://enrich-rpg.vercel.app/",
