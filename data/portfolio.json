@@ -21,7 +21,7 @@
   "projects": [{
     "title": "AGM Meeting Tracker",
     "tagline": "AGM/EGM Tracking Platform",
-    "description": "Investor-focused platform that aggregates, synchronizes, and presents AGM/EGM meeting information for Bursa Malaysia shareholders through portfolio-aware filtering and responsive calendar views. Designed with responsive and purposeful data presentation in mind.",
+    "description": "Investor-focused platform aggregating AGM/EGM meeting information for Bursa Malaysia shareholders with portfolio-aware filtering and responsive calendar views.",
     "highlights": ["Automated AGM/EGM data updates", "Responsive calendar dashboard views", "Bursa Malaysia stock search", "Portfolio-based meeting filtering", "Google OAuth authentication", "Hybrid meeting link integration"],
     "tech": ["Next.js", "Tailwind CSS", "Supabase", "PostgreSQL", "Python", "Vercel", "OAuth"],
     "featured": true,
@@ -32,7 +32,7 @@
   }, {
     "title": "Enrich.rpg",
     "tagline": "Gamified Self-Improvement Platform",
-    "description": "AI-powered productivity platform that transforms goals into actionable quests using NVIDIA NIM, structured progression systems, and personalized reward mechanics. Designed with scalable backend architecture and responsive user experiences in mind.",
+    "description": "AI-powered productivity platform transforming goals into actionable quests through structured progression systems and personalized rewards.",
     "highlights": ["AI-powered quest generation", "Server-side data synchronization", "Google OAuth authentication", "Quest and reward management", "Responsive dashboard and progress analytics"],
     "tech": ["Next.js", "Tailwind CSS", "Supabase", "PostgreSQL", "Vercel", "OAuth", "OpenAI API"],
     "featured": true,
@@ -42,7 +42,7 @@
     }
   }, {
     "title": "This Portfolio Website",
-    "tagline": "AI-Powered Portfolio Platform with CMS built-in",
+    "tagline": "AI-Powered Portfolio Platform with Integrated CMS",
     "description": "A data-driven portfolio management system featuring AI-assisted content discovery and contextual navigation.",
     "highlights": ["AI-powered contextual navigation", "Dynamic content-driven architecture", "Centralized portfolio management", "Admin dashboard content editing", "Structured AI response workflows"],
     "tech": ["Next.js", "Tailwin CSS", "JSON", "Vercel", "OpenAI API"],
