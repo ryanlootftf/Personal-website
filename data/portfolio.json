@@ -43,6 +43,17 @@
       "live": "https://agm-tracker-site.vercel.app/",
       "github": null
     }
+  }, {
+    "title": "Enrich.rpg",
+    "tagline": "Gamified Self-Improvement Platform",
+    "description": "Productivity platform leveraging Next.js, Supabase, and NVIDIA NIM to automate goal planning and progression management. Designed with scalable backend architecture and responsive user experiences in mind.",
+    "highlights": ["AI-powered quest generation", "Server-side data synchronization", "Google OAuth authentication", "Quest and reward management"],
+    "tech": ["Next.js", "Supabase", "PostgreSQL", "TailwindCSS", "NVIDIA NIM", "Google OAuth", "Vercel"],
+    "featured": true,
+    "links": {
+      "live": "https://enrich-rpg.vercel.app/",
+      "github": null
+    }
   }],
   "skills": {
     "languages": ["JavaScript", "Python", "HTML/CSS"],
