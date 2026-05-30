@@ -17,6 +17,13 @@
     "description": "Contributed to full-stack development, focusing on front-end frameworks and PostgreSQL troubleshooting for\nscalable, efficient systems.",
     "highlights": ["Facilitated migration from legacy browser platforms to modern web environments", "Contributed to .NET web application development aligned with business requirement", "Participated in system testing, maintenance, and issue resolution"],
     "tech": [".NET", "PostgreSQL", "jQuery", "Bootstrap", "C#"]
+  }, {
+    "role": "Independent Learning & Product Development",
+    "company": "",
+    "duration": "2024 - Present",
+    "description": "Focused on AI technologies, software architecture, and modern development workflows through self-directed learning, experimentation, and product development.",
+    "highlights": ["Explored AI-assisted and agentic development workflows", "Researched modern AI frameworks and LLM integrations", "Built multiple full-stack software products and self-hosted applications", "Designed data-driven, automation-focused system architecture", "Managed deployment, maintenance, and iterative product development"],
+    "tech": ["Next.js", "Tailwind CSS", "PostgresSQL", "Supabase", "OpenAI API", "Claude", "Vercel"]
   }],
   "projects": [{
     "title": "AGM Meeting Tracker",
@@ -45,7 +52,7 @@
     "tagline": "AI-Powered Portfolio Platform with Integrated CMS",
     "description": "A data-driven portfolio management system featuring AI-assisted content discovery and contextual navigation.",
     "highlights": ["AI-powered contextual navigation", "Dynamic content-driven architecture", "Centralized portfolio management", "Admin dashboard content editing", "Structured AI response workflows"],
-    "tech": ["Next.js", "Tailwin CSS", "JSON", "Vercel", "OpenAI API"],
+    "tech": ["Next.js", "Tailwind CSS", "JSON", "Vercel", "OpenAI API"],
     "featured": false,
     "links": {
       "live": null,
