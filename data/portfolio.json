@@ -21,7 +21,7 @@
   "projects": [{
     "title": "AGM Meeting Tracker",
     "tagline": "AGM/EGM Tracking Platform",
-    "description": "Investor-focused AGM/EGM tracking platform for Bursa Malaysia shareholders, providing up-to-date key informations on upcoming meetings. Designed with responsive and purposeful data presentation in mind.",
+    "description": "Investor-focused platform that aggregates, synchronizes, and presents AGM/EGM meeting information for Bursa Malaysia shareholders through portfolio-aware filtering and responsive calendar views. Designed with responsive and purposeful data presentation in mind.",
     "highlights": ["Automated AGM/EGM data updates", "Responsive calendar dashboard views", "Bursa Malaysia stock search", "Portfolio-based meeting filtering", "Google OAuth authentication", "Hybrid meeting link integration"],
     "tech": ["Next.js", "Tailwind CSS", "Supabase", "PostgreSQL", "Python", "Vercel", "OAuth"],
     "featured": true,
@@ -32,7 +32,7 @@
   }, {
     "title": "Enrich.rpg",
     "tagline": "Gamified Self-Improvement Platform",
-    "description": "Productivity platform leveraging Next.js, Supabase, and NVIDIA NIM to automate goal planning and progression management. Designed with scalable backend architecture and responsive user experiences in mind.",
+    "description": "AI-powered productivity platform that transforms goals into actionable quests using NVIDIA NIM, structured progression systems, and personalized reward mechanics. Designed with scalable backend architecture and responsive user experiences in mind.",
     "highlights": ["AI-powered quest generation", "Server-side data synchronization", "Google OAuth authentication", "Quest and reward management", "Responsive dashboard and progress analytics"],
     "tech": ["Next.js", "Tailwind CSS", "Supabase", "PostgreSQL", "Vercel", "OAuth", "OpenAI API"],
     "featured": true,
