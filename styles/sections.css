@@ -213,6 +213,8 @@
     cursor: pointer;
     position: relative;
     overflow: hidden;
+    display: flex;
+    flex-direction: column;
 }
 
 .project-card:hover {
@@ -277,6 +279,7 @@
 .project-card .project-links {
     display: flex;
     gap: 0.75rem;
+    margin-top: auto;
 }
 
 .project-card .project-links a {

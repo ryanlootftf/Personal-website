@@ -258,7 +258,7 @@ function renderProjects(projects) {
         const a = document.createElement('a');
         a.href = proj.links.live;
         a.target = '_blank';
-        a.textContent = 'Live Demo';
+        a.textContent = 'Link';
         linksDiv.appendChild(a);
       }
       if (proj.links.github) {
