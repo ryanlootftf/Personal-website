@@ -36,8 +36,8 @@
     },
     "openrouter": {
       "model": "minimax/minimax-m2.5:free",
-      "temperature": 0.7,
-      "max_tokens": 1024
+      "temperature": 1,
+      "max_tokens": 2048
     }
   }
 }
