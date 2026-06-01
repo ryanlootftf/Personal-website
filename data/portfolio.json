@@ -60,11 +60,11 @@
     }
   }],
   "skills": {
-    "languages": ["JavaScript", "Python", "HTML/CSS"],
+    "languages": ["JavaScript", "Python", "HTML/CSS", "SQL"],
     "frameworks": ["React", "Node.js", "Express", "Next.js", "FastAPI"],
     "databases": ["PostgreSQL", "SQLite"],
-    "cloud": ["AWS", "Docker", "Vercel", "Github"],
-    "ai_ml": ["OpenAI API", "Ollama", "Claude"]
+    "cloud": ["AWS", "Docker", "Vercel", "Github", "Linux"],
+    "ai_ml": ["OpenAI API", "Ollama", "Claude", "AI Agents", "AI-Assisted Development"]
   },
   "education": [{
     "institution": "Tunku Abdul Rahman University College",
