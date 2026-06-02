@@ -383,7 +383,7 @@ function renderResume(resume) {
   downloadBtn.className = 'resume-download-btn';
   downloadBtn.href = resume.pdf_path || '/resume.pdf';
   downloadBtn.download = `Resume_${resume.name?.replace(/\s+/g, '_') || 'Ryan_Loo'}.pdf`;
-  downloadBtn.textContent = '⬇  Download PDF Resume';
+  downloadBtn.textContent = '📄  Download Resume';
 
   container.appendChild(summary);
   container.appendChild(downloadBtn);
