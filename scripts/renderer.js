@@ -406,27 +406,86 @@ function renderContact(contact) {
 
   mapping.forEach(m => {
     if (contact[m.key]) {
-      const a = document.createElement('a');
-      a.className = 'contact-link';
-      a.href = m.href;
-      // Only open in new tab for HTTP/HTTPS links, not mailto:
-      if (m.href && !m.href.startsWith('mailto:')) {
+      if (m.key === 'email') {
+        // Email uses clipboard copy instead of mailto:
+        const btn = document.createElement('button');
+        btn.className = 'contact-link';
+        btn.type = 'button';
+        btn.title = 'Copy email address';
+
+        const icon = document.createElement('span');
+        icon.className = 'icon';
+        icon.textContent = m.icon;
+
+        const label = document.createElement('span');
+        label.textContent = m.key.charAt(0).toUpperCase() + m.key.slice(1);
+
+        btn.appendChild(icon);
+        btn.appendChild(label);
+
+        btn.addEventListener('click', () => {
+          navigator.clipboard.writeText(contact.email).catch(() => {});
+          showToast('Copied to clipboard');
+        });
+
+        linksDiv.appendChild(btn);
+      } else {
+        const a = document.createElement('a');
+        a.className = 'contact-link';
+        a.href = m.href;
         a.target = '_blank';
+
+        const icon = document.createElement('span');
+        icon.className = 'icon';
+        icon.textContent = m.icon;
+
+        const label = document.createElement('span');
+        label.textContent = m.key.charAt(0).toUpperCase() + m.key.slice(1);
+
+        a.appendChild(icon);
+        a.appendChild(label);
+        linksDiv.appendChild(a);
       }
-
-      const icon = document.createElement('span');
-      icon.className = 'icon';
-      icon.textContent = m.icon;
-
-      const label = document.createElement('span');
-      label.textContent = m.key.charAt(0).toUpperCase() + m.key.slice(1);
-
-      a.appendChild(icon);
-      a.appendChild(label);
-      linksDiv.appendChild(a);
     }
   });
 
   section.appendChild(linksDiv);
   return section;
+}
+
+/* ---------- Toast notification ---------- */
+
+function showToast(message) {
+  const existing = document.getElementById('toast-notification');
+  if (existing) existing.remove();
+
+  const toast = document.createElement('div');
+  toast.id = 'toast-notification';
+  toast.textContent = message;
+  Object.assign(toast.style, {
+    position: 'fixed',
+    top: '24px',
+    left: '50%',
+    transform: 'translateX(-50%)',
+    background: '#333',
+    color: '#fff',
+    padding: '10px 24px',
+    borderRadius: '8px',
+    fontSize: '14px',
+    zIndex: 9999,
+    opacity: '0',
+    transition: 'opacity 0.3s ease',
+    pointerEvents: 'none'
+  });
+
+  document.body.appendChild(toast);
+
+  // Trigger fade-in
+  requestAnimationFrame(() => { toast.style.opacity = '1'; });
+
+  // Fade-out after 2s
+  setTimeout(() => {
+    toast.style.opacity = '0';
+    setTimeout(() => toast.remove(), 300);
+  }, 2000);
 }

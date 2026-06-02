@@ -361,7 +361,16 @@
     color: var(--text-secondary);
     text-decoration: none;
     font-size: 0.9rem;
+    font-family: inherit;
+    cursor: pointer;
     transition: all 0.2s ease;
+}
+
+button.contact-link {
+    /* Reset default button styles so it matches anchor links visually */
+    -webkit-appearance: none;
+    appearance: none;
+    font: inherit;
 }
 
 .contact-link:hover {
