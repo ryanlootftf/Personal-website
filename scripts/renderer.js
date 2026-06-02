@@ -409,7 +409,10 @@ function renderContact(contact) {
       const a = document.createElement('a');
       a.className = 'contact-link';
       a.href = m.href;
-      a.target = '_blank';
+      // Only open in new tab for HTTP/HTTPS links, not mailto:
+      if (m.href && !m.href.startsWith('mailto:')) {
+        a.target = '_blank';
+      }
 
       const icon = document.createElement('span');
       icon.className = 'icon';
