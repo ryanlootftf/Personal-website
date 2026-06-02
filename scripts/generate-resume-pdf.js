@@ -191,7 +191,7 @@ async function main() {
   const htmlPath = resolve(ROOT, '_resume_temp.html');
   writeFileSync(htmlPath, html);
 
-  const pdfPath = resolve(ROOT, 'resume.pdf');
+  const pdfPath = resolve(ROOT, 'LooTuckFatt_Resume.pdf');
 
   const browser = await puppeteer.launch({ headless: 'new' });
   const page = await browser.newPage();
