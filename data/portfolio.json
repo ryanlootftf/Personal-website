@@ -93,11 +93,11 @@
     },
     "featuredProjects": [{
       "title": "AGM Meeting Tracker",
-      "description": "Investor-focused platform aggregating AGM/EGM meeting information for Bursa Malaysia shareholders with portfolio-aware filtering and responsive calendar views.",
-      "highlights": ["Built an investor-focused platform aggregating AGM/EGM data for Bursa Malaysia shareholders with portfolio-aware filtering and calendar views", "Automated data ingestion pipeline for AGM/EGM updates with Python backend", "Implemented Google OAuth authentication and responsive dashboard with Next.js and PostgreSQL"]
+      "description": "AGM/EGM tracking platform for Bursa Malaysia shareholders.",
+      "highlights": ["Built an AGM/EGM tracking platform for Bursa Malaysia shareholders with portfolio-aware filtering and calendar views", "Automated data ingestion pipeline for AGM/EGM updates with Python backend", "Implemented Google OAuth authentication and responsive dashboard with Next.js and PostgreSQL"]
     }, {
       "title": "Enrich.rpg",
-      "description": "AI-powered productivity platform transforming goals into actionable quests through structured progression systems and personalized rewards.",
+      "description": "AI-powered productivity platform transforming goals into actionable quests.",
       "highlights": ["Built an AI-powered productivity platform that transforms user goals into structured quests using OpenAI API", "Implemented server-side data synchronization and progress tracking with Supabase and PostgreSQL", "Integrated Google OAuth authentication with responsive dashboard and analytics views"]
     }],
     "experience": [{
@@ -105,7 +105,7 @@
       "company": "Fujitsu System Global Solutions Management",
       "duration": "2021 – 2024",
       "description": "Contributed to full-stack development, focusing on front-end frameworks and PostgreSQL troubleshooting for scalable, efficient systems.",
-      "highlights": ["Facilitated migration from legacy browser platforms to modern web environments", "Contributed to .NET web application development aligned with business requirement", "Participated in system testing, maintenance, and issue resolution"],
+      "highlights": ["Contributed to full-stack development of .NET web applications in a 17-person team aligned with business requirements", "Migrated legacy web applications from IE to Chromium-based browsers improving compatibility and performance", "Optimized application performance through front-end code improvements and PostgreSQL query tuning"],
       "tech": []
     }, {
       "role": "Independent Learning & Product Development",
@@ -121,7 +121,7 @@
       "year": "May 2021",
       "achievements": ["Honours Degree with Distinction (CGPA: 3.79)", "President's List (2 semesters), Dean's List (4 semesters)"]
     }],
-    "technicalSkills": ["Python", "Javascript", "React", "Next.js", "OpenAI API", "AI Agents", "AI-Assisted Development", "Linux", "Docker", "PostgresSQL"],
+    "technicalSkills": ["Python", "React", "Next.js", "OpenAI API", "AI Agents", "AI-Assisted Development", "Linux", "Docker", "PostgresSQL", "JavaScript"],
     "certifications": ["AZ-900: Microsoft Azure Fundamentals | Microsoft, Jun 2022"],
     "languages": ["English", "Chinese", "Malay"],
     "pdf_path": "/resume.pdf"
