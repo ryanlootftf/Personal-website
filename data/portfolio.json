@@ -63,7 +63,7 @@
     "languages": ["JavaScript", "Python", "HTML/CSS", "SQL"],
     "frameworks": ["React", "Node.js", "Express", "Next.js", "FastAPI"],
     "databases": ["PostgreSQL", "SQLite"],
-    "cloud": ["AWS", "Docker", "Vercel", "Github", "Linux"],
+    "cloud": ["Docker", "Vercel", "Github", "Linux"],
     "ai_ml": ["OpenAI API", "Ollama", "Claude", "AI Agents", "AI-Assisted Development"]
   },
   "education": [{
@@ -81,7 +81,7 @@
   "resume": {
     "name": "Ryan Loo Tuck Fatt",
     "title": "Full Stack Developer & AI Enthusiast",
-    "profile": "Software engineer with a CS background and a strong interest in building systems leveraging AI and LLM technologies. Built and shipped a modular AI agent platform with persistent memory, automated pipelines, sandboxed execution, and real-time integration — end to end, independently. Comfortable across the full SD stack but most at home on the AI layer.",
+    "profile": "Full-stack developer with 4+ years of experience building scalable web applications, AI-powered tools, and leveraging AI tools.",
     "contact": {
       "email": "ryanlootf6@gmail.com",
       "phone": "(+60) 17-2533 961"
@@ -92,16 +92,27 @@
       "website": "https://personal-website-kappa-azure-64.vercel.app/"
     },
     "featuredProjects": [{
-      "title": "Clawcer Machine — AI Agent Assistant",
-      "description": "Developed a modular personal AI assistant platform with persistent memory, secure execution controls, and semi-automated workflows, integrated with Telegram for real-time interaction and task automation.",
-      "highlights": ["Engineered a privacy-focused web search and structured local storage system with RAG-like retrieval capabilities, enabling real-time data access and contextual continuity across sessions", "Built an end-to-end automated resume generation pipeline — job parsing, relevance scoring, PDF generation, and delivery — reducing manual tailoring time by 90%", "Developed a secure execution layer with command allowlisting, user approval prompts, and sandboxed wrapper scripts to mitigate unsafe operations, enforcing clear execution boundaries", "Optimized system performance for low-resource environments through efficient process management, containerization, and volume-based data persistence", "Established a scalable architecture for adding new AI skills and integrations, designed for ease of expansion"]
+      "title": "AGM Meeting Tracker",
+      "description": "Investor-focused platform aggregating AGM/EGM meeting information for Bursa Malaysia shareholders with portfolio-aware filtering and responsive calendar views.",
+      "highlights": []
+    }, {
+      "title": "Enrich.rpg",
+      "description": "AI-powered productivity platform transforming goals into actionable quests through structured progression systems and personalized rewards.",
+      "highlights": []
     }],
     "experience": [{
       "role": "Software Developer",
       "company": "Fujitsu System Global Solutions Management",
-      "duration": "Oct 2021 – Jan 2024",
-      "description": "",
-      "highlights": ["Contributed to full-stack development, focusing on front-end frameworks and PostgreSQL troubleshooting for scalable, efficient systems", "Improved application performance through optimization of front-end code and database queries", "Collaborated in a 17-person team, developing .NET web applications tailored to meet evolving business requirements", "Modernized legacy web applications, migrating from IE to Chromium-based browsers improving compatibility and performance"],
+      "duration": "2021 – 2024",
+      "description": "Contributed to full-stack development, focusing on front-end frameworks and PostgreSQL troubleshooting for scalable, efficient systems.",
+      "highlights": ["Facilitated migration from legacy browser platforms to modern web environments", "Contributed to .NET web application development aligned with business requirement", "Participated in system testing, maintenance, and issue resolution"],
+      "tech": []
+    }, {
+      "role": "Independent Learning & Product Development",
+      "company": "",
+      "duration": "2024 - Present",
+      "description": "Focused on AI technologies, software architecture, and modern development workflows through self-directed learning, experimentation, and product development.",
+      "highlights": ["Explored AI-assisted and agentic development workflows", "Built multiple full-stack software products and self-hosted applications", "Managed deployment, maintenance, and iterative product development"],
       "tech": []
     }],
     "education": [{
@@ -110,7 +121,7 @@
       "year": "May 2021",
       "achievements": ["Honours Degree with Distinction (CGPA: 3.79)", "President's List (2 semesters), Dean's List (4 semesters)"]
     }],
-    "technicalSkills": ["Generative AI (GPT, LLMs)", "AI Agents", "Python", "React", "Node.js", "RAG", "Prompt Engineering", "JavaScript", "TypeScript"],
+    "technicalSkills": ["AI Agents", "Python", "JavaScript", "SQL", "Linux", "AI-Assisted Development"],
     "certifications": ["AZ-900: Microsoft Azure Fundamentals | Microsoft, Jun 2022"],
     "languages": ["English", "Chinese", "Malay"],
     "pdf_path": "/resume.pdf"
