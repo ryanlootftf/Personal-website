@@ -81,7 +81,7 @@
   "resume": {
     "name": "Ryan Loo Tuck Fatt",
     "title": "Full Stack Developer & AI Enthusiast",
-    "profile": "Full-stack developer with 4+ years of experience building scalable web applications, AI-powered tools, and leveraging AI tools.",
+    "profile": "Full-stack developer with 3+ years of professional experience and a strong focus on AI-integrated web applications. Independently built and shipped multiple production products leveraging modern frameworks, LLM APIs, and agentic workflows. Comfortable across the full stack but most at home building on the AI layer.",
     "contact": {
       "email": "ryanlootf6@gmail.com",
       "phone": "(+60) 17-2533 961"
@@ -94,11 +94,11 @@
     "featuredProjects": [{
       "title": "AGM Meeting Tracker",
       "description": "Investor-focused platform aggregating AGM/EGM meeting information for Bursa Malaysia shareholders with portfolio-aware filtering and responsive calendar views.",
-      "highlights": []
+      "highlights": ["Built an investor-focused platform aggregating AGM/EGM data for Bursa Malaysia shareholders with portfolio-aware filtering and calendar views", "Automated data ingestion pipeline for AGM/EGM updates with Python backend", "Implemented Google OAuth authentication and responsive dashboard with Next.js and PostgreSQL"]
     }, {
       "title": "Enrich.rpg",
       "description": "AI-powered productivity platform transforming goals into actionable quests through structured progression systems and personalized rewards.",
-      "highlights": []
+      "highlights": ["Built an AI-powered productivity platform that transforms user goals into structured quests using OpenAI API", "Implemented server-side data synchronization and progress tracking with Supabase and PostgreSQL", "Integrated Google OAuth authentication with responsive dashboard and analytics views"]
     }],
     "experience": [{
       "role": "Software Developer",
@@ -112,7 +112,7 @@
       "company": "",
       "duration": "2024 - Present",
       "description": "Focused on AI technologies, software architecture, and modern development workflows through self-directed learning, experimentation, and product development.",
-      "highlights": ["Explored AI-assisted and agentic development workflows", "Built multiple full-stack software products and self-hosted applications", "Managed deployment, maintenance, and iterative product development"],
+      "highlights": ["Independently designed, built, and shipped multiple full-stack web products from concept to production", "Developed AI-integrated applications leveraging LLM APIs", "Explored agentic AI workflows and modern AI frameworks through hands-on experimentation and product development"],
       "tech": []
     }],
     "education": [{
@@ -121,7 +121,7 @@
       "year": "May 2021",
       "achievements": ["Honours Degree with Distinction (CGPA: 3.79)", "President's List (2 semesters), Dean's List (4 semesters)"]
     }],
-    "technicalSkills": ["AI Agents", "Python", "JavaScript", "SQL", "Linux", "AI-Assisted Development"],
+    "technicalSkills": ["Python", "Javascript", "React", "Next.js", "OpenAI API", "AI Agents", "AI-Assisted Development", "Linux", "Docker", "PostgresSQL"],
     "certifications": ["AZ-900: Microsoft Azure Fundamentals | Microsoft, Jun 2022"],
     "languages": ["English", "Chinese", "Malay"],
     "pdf_path": "/resume.pdf"
