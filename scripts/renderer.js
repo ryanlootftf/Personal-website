@@ -40,6 +40,11 @@ export function renderPortfolio(data) {
     sections.push(renderEducation(data.education));
   }
 
+  // ---------- Resume ----------
+  if (data.resume) {
+    sections.push(renderResume(data.resume));
+  }
+
   // ---------- Contact ----------
   if (data.contact) {
     sections.push(renderContact(data.contact));
@@ -361,6 +366,28 @@ function renderEducation(education) {
   });
 
   section.appendChild(list);
+  return section;
+}
+
+function renderResume(resume) {
+  const section = createSection('resume', 'Download', 'Resume');
+
+  const container = document.createElement('div');
+  container.className = 'resume-section';
+
+  const summary = document.createElement('p');
+  summary.className = 'resume-summary';
+  summary.textContent = resume.summary;
+
+  const downloadBtn = document.createElement('a');
+  downloadBtn.className = 'resume-download-btn';
+  downloadBtn.href = resume.pdf_path || '/resume.pdf';
+  downloadBtn.download = `Resume_${resume.name?.replace(/\s+/g, '_') || 'Ryan_Loo'}.pdf`;
+  downloadBtn.textContent = '⬇  Download PDF Resume';
+
+  container.appendChild(summary);
+  container.appendChild(downloadBtn);
+  section.appendChild(container);
   return section;
 }
 

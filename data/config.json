@@ -26,6 +26,9 @@
   }, {
     "id": "contact",
     "enabled": true
+  }, {
+    "id": "resume",
+    "enabled": true
   }],
   "suggestedPrompts": ["What projects have you worked on?", "Tell me about your experience", "What are your skills?", "How can I contact you?"],
   "ai": {

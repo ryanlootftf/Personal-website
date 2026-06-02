@@ -1,7 +1,13 @@
 {
   "type": "module",
+  "scripts": {
+    "generate-resume": "node scripts/generate-resume-pdf.js"
+  },
   "dependencies": {
     "express": "^5.2.1",
     "openai": "^6.34.0"
+  },
+  "devDependencies": {
+    "puppeteer": "^24.0.0"
   }
 }
