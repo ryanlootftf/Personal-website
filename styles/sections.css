@@ -428,7 +428,7 @@
 
 /* Resume */
 .resume-section {
-    text-align: center;
+    text-align: left;
     padding: 1.5rem 0;
 }
 
@@ -438,8 +438,6 @@
     line-height: 1.6;
     margin-bottom: 1.5rem;
     max-width: 600px;
-    margin-left: auto;
-    margin-right: auto;
 }
 
 .resume-download-btn {
