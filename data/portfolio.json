@@ -20,10 +20,17 @@
   }, {
     "role": "Independent Learning & Product Development",
     "company": "",
-    "duration": "2024 - Present",
+    "duration": "2024 - 2026",
     "description": "Focused on AI technologies, software architecture, and modern development workflows through self-directed learning, experimentation, and product development.",
     "highlights": ["Explored AI-assisted and agentic development workflows", "Built multiple full-stack software products and self-hosted applications", "Managed deployment, maintenance, and iterative product development"],
     "tech": ["Next.js", "Tailwind CSS", "PostgreSQL", "Supabase", "OpenAI API", "Claude", "Vercel"]
+  }, {
+    "role": "AI Native Software Developer",
+    "company": "Thousands of Years Media",
+    "duration": "2026 - Present",
+    "description": "",
+    "highlights": [],
+    "tech": []
   }],
   "projects": [{
     "title": "AGM Meeting Tracker",
