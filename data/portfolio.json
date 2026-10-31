@@ -4,11 +4,11 @@
     "title": "Full Stack Developer & AI Enthusiast",
     "tagline": "Building intelligent, scalable web experiences with modern technology stacks.",
     "avatar": null,
-    "bio": "I'm a passionate full-stack developer with expertise in building modern web applications, AI integrations, and cloud-native solutions. I thrive on turning complex problems into elegant, user-friendly experiences."
+    "bio": "AI-focused software engineer specializing in practical AI-powered applications and intelligent automation systems. Experienced in translating ambiguous business requirements into end-to-end solutions, combining LLM capabilities with full-stack engineering, deterministic logic and workflow automation. Strong at taking ideas from concept to production and delivering solutions to real-world problems."
   },
   "about": {
     "summary": "Full-stack developer with 3+ years of experience building scalable web applications, AI-powered tools, and leveraging AI tools.",
-    "bio": "I'm a passionate full-stack developer with expertise in building modern web applications, AI integrations, and cloud-native solutions. I thrive on turning complex problems into elegant, user-friendly experiences."
+    "bio": "AI-focused software engineer specializing in practical AI-powered applications and intelligent automation systems. Experienced in translating ambiguous business requirements into end-to-end solutions, combining LLM capabilities with full-stack engineering, deterministic logic and workflow automation. Strong at taking ideas from concept to production and delivering solutions to real-world problems."
   },
   "experience": [{
     "role": "Software Developer",
@@ -29,7 +29,7 @@
     "company": "Thousands of Years Media",
     "duration": "2026 - Present",
     "description": "",
-    "highlights": [],
+    "highlights": ["Owned end-to-end development of an AI-powered employee performance reporting system, automating task tracking and management reporting to reduce estimated review time from 2 hours to 10 minutes.", "Enhanced the reporting system with Gemini and Google Workspace integrations for automated task extraction, target matching and progress summaries, combining AI reasoning with deterministic validation.", "Engineered a multilingual semantic duplicate-detection feature for a Laravel-based feedback platform, achieving approximately 90% matching accuracy in benchmark tests and reducing estimated administrative investigation time from 30 to 3 minutes daily.", "Optimized the duplicate-detection pipeline through custom tokenization, embedding inference and vector similarity in plain PHP, reducing model size by 87% (416 MB to 54 MB) for resource-constrained hosting without external AI APIs."],
     "tech": []
   }],
   "projects": [{
