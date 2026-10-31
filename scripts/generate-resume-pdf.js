@@ -14,7 +14,7 @@
 import puppeteer from 'puppeteer';
 import { readFileSync, writeFileSync } from 'fs';
 import { resolve, dirname } from 'path';
-import { fileURLToPath } from 'url';
+import { fileURLToPath, pathToFileURL } from 'url';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = resolve(__dirname, '..');
@@ -23,8 +23,10 @@ function loadJSON(relativePath) {
   return JSON.parse(readFileSync(resolve(ROOT, relativePath), 'utf-8'));
 }
 
-function buildHTML(resume) {
+export function buildHTML(resume) {
   const { name, title, profile, contact, links, featuredProjects, experience, education, technicalSkills, certifications, languages } = resume;
+  const vis = resume.visibleSections || {};
+  const show = (key) => vis[key] !== false;
 
   // Contact + links merged into one line with clickable labels
   const parts = [];
@@ -36,36 +38,54 @@ function buildHTML(resume) {
   const contactLine = parts.join('  |  ');
 
   // Featured Projects
-  const fpHTML = (featuredProjects || []).map(fp => `
+  const fpHTML = show('projects') ? (featuredProjects || []).map(fp => `
     <div class="entry">
       <h3>${fp.title}</h3>
       <p class="desc">${fp.description}</p>
       ${fp.highlights?.length ? `<ul>${fp.highlights.map(h => `<li>${h}</li>`).join('')}</ul>` : ''}
     </div>
-  `).join('');
+  `).join('') : '';
 
   // Experience — company as header, then italicized role + duration
-  const expHTML = experience.map(e => `
+  const expHTML = show('experience') ? (experience || []).map(e => `
     <div class="entry">
       <h3>${e.company}</h3>
       <div class="role-line"><em>${e.role}</em> — ${e.duration}</div>
       ${e.highlights?.length ? `<ul>${e.highlights.map(h => `<li>${h}</li>`).join('')}</ul>` : ''}
     </div>
-  `).join('');
+  `).join('') : '';
 
   // Education — institution as header, then italicized degree + year
-  const eduHTML = education.map(e => `
+  const eduHTML = show('education') ? (education || []).map(e => `
     <div class="entry">
       <h3>${e.institution}</h3>
       <div class="role-line"><em>${e.degree}</em> — ${e.year}</div>
       ${e.achievements?.length ? `<ul>${e.achievements.map(a => `<li>${a}</li>`).join('')}</ul>` : ''}
     </div>
-  `).join('');
+  `).join('') : '';
 
   // Skills & Certifications merged section
-  const tsHTML = technicalSkills?.length ? `<div class="inline-line"><strong>Technical Skills:</strong> ${technicalSkills.join(', ')}</div>` : '';
-  const certHTML = certifications?.length ? `<div class="inline-line"><strong>Certifications:</strong> ${certifications.join(', ')}</div>` : '';
-  const langHTML = languages?.length ? `<div class="inline-line"><strong>Languages:</strong> ${languages.join(', ')}</div>` : '';
+  const tsHTML = show('technicalSkills') && technicalSkills?.length ? `<div class="inline-line"><strong>Technical Skills:</strong> ${technicalSkills.join(', ')}</div>` : '';
+  const certHTML = show('certifications') && certifications?.length ? `<div class="inline-line"><strong>Certifications:</strong> ${certifications.join(', ')}</div>` : '';
+  const langHTML = show('languages') && languages?.length ? `<div class="inline-line"><strong>Languages:</strong> ${languages.join(', ')}</div>` : '';
+
+  // Assemble sections — hidden or empty sections are omitted entirely
+  const profileHTML = show('profile') && profile
+    ? `<h2>Profile</h2>\n  <p class="profile-text">${profile}</p>`
+    : '';
+  const expSection = expHTML ? `<h2>Work Experience</h2>\n  ${expHTML}` : '';
+  const fpSection = fpHTML ? `<h2>Featured Projects</h2>\n  ${fpHTML}` : '';
+  const eduSection = eduHTML ? `<h2>Education</h2>\n  ${eduHTML}` : '';
+  const skillsHTML = [tsHTML, certHTML, langHTML].filter(Boolean).join('\n  ');
+  let skillsSection = '';
+  if (skillsHTML) {
+    const parts = [];
+    if (tsHTML) parts.push('Technical Skills');
+    if (certHTML) parts.push('Certifications');
+    if (langHTML) parts.push('Languages');
+    const heading = parts.length === 3 ? 'Certifications & Skills' : parts.join(' & ');
+    skillsSection = `<h2>${heading}</h2>\n  ${skillsHTML}`;
+  }
 
   return `
 <!DOCTYPE html>
@@ -159,22 +179,15 @@ function buildHTML(resume) {
   <h1>${name}</h1>
   ${contactLine ? `<div class="contact-line">${contactLine}</div>` : ''}
 
-  <h2>Profile</h2>
-  <p class="profile-text">${profile}</p>
+  ${profileHTML}
 
-  <h2>Work Experience</h2>
-  ${expHTML}
+  ${expSection}
 
-  <h2>Featured Projects</h2>
-  ${fpHTML}
+  ${fpSection}
 
-  <h2>Education</h2>
-  ${eduHTML}
+  ${eduSection}
 
-  <h2>Certifications & Skills</h2>
-  ${tsHTML}
-  ${certHTML}
-  ${langHTML}
+  ${skillsSection}
 </body>
 </html>`;
 }
@@ -212,7 +225,10 @@ async function main() {
   console.log(`✅ PDF generated: ${pdfPath}`);
 }
 
-main().catch(err => {
-  console.error('❌ PDF generation failed:', err);
-  process.exit(1);
-});
+const isMain = process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href;
+if (isMain) {
+  main().catch(err => {
+    console.error('❌ PDF generation failed:', err);
+    process.exit(1);
+  });
+}
