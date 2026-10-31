@@ -28,9 +28,9 @@
     "role": "AI Native Software Developer",
     "company": "Thousands of Years Media",
     "duration": "2026 - Present",
-    "description": "",
-    "highlights": ["Owned end-to-end development of an AI-powered employee performance reporting system, automating task tracking and management reporting to reduce estimated review time from 2 hours to 10 minutes.", "Enhanced the reporting system with Gemini and Google Workspace integrations for automated task extraction, target matching and progress summaries, combining AI reasoning with deterministic validation.", "Engineered a multilingual semantic duplicate-detection feature for a Laravel-based feedback platform, achieving approximately 90% matching accuracy in benchmark tests and reducing estimated administrative investigation time from 30 to 3 minutes daily.", "Optimized the duplicate-detection pipeline through custom tokenization, embedding inference and vector similarity in plain PHP, reducing model size by 87% (416 MB to 54 MB) for resource-constrained hosting without external AI APIs."],
-    "tech": []
+    "description": "Developing AI-powered business applications and intelligent automation systems.",
+    "highlights": ["Built an AI-powered employee reporting system", "Integrated Gemini for automated task extraction and progress tracking", "Engineered multilingual semantic duplicate detection with 90% benchmark accuracy", "Optimized PHP embedding inference, reducing model size by 87%"],
+    "tech": ["Gemini", "Google Workspace", "PHP", "Laravel", "Vector Embeddings", "Semantic Search"]
   }],
   "projects": [{
     "title": "AGM Meeting Tracker",
