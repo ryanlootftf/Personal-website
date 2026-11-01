@@ -158,14 +158,13 @@ export function buildHTML(resume) {
     font-size: 9pt;
     color: #444;
     padding-left: 12pt;
-    position: relative;
     line-height: 1.4;
   }
   li::before {
     content: '\\2022';
-    position: absolute;
-    left: 3pt;
     color: #888;
+    margin-left: -9pt;
+    margin-right: 5pt;
   }
   .inline-line {
     font-size: 9pt;
