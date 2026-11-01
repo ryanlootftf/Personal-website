@@ -88,7 +88,7 @@
   "resume": {
     "name": "Ryan Loo Tuck Fatt",
     "title": "Full Stack Developer & AI Enthusiast",
-    "profile": "AI-focused software engineer specializing in practical AI-powered applications and intelligent automation systems. Experienced in translating ambiguous business requirements into end-to-end solutions, combining LLM capabilities with full-stack engineering, deterministic logic and workflow automation. Strong at taking ideas from concept to production and delivering solutions to real-world problems.",
+    "profile": "AI-focused software engineer who turns business requirements into production systems, combining LLMs and agentic workflows with full-stack engineering and deterministic logic. Experienced in building AI-powered automation, from LLM-driven reporting to multilingual semantic matching, and in shipping products from spec to deployment.",
     "contact": {
       "email": "ryanlootf6@gmail.com",
       "phone": "(+60) 17-2533 961"
@@ -135,7 +135,7 @@
       "year": "May 2021",
       "achievements": ["Honours Degree with Distinction (CGPA: 3.79)", "President's List (2 semesters), Dean's List (4 semesters)"]
     }],
-    "technicalSkills": ["Python", "React", "Next.js", "OpenAI API", "AI Agents", "AI-Assisted Development", "Linux", "Docker", "JavaScript", "TypeScript", "PostgreSQL", "Claude Code"],
+    "technicalSkills": ["Python", "React", "Next.js", "OpenAI API", "AI Agents", "AI-Assisted Development", "Linux", "Docker", "JavaScript", "TypeScript", "PostgreSQL", "Claude Code", "MCP", "Semantic Search"],
     "certifications": ["AZ-900: Microsoft Azure Fundamentals | Microsoft, Jun 2022", "Agentic AI Certified Foundations Associate | Oracle, Aug 2026"],
     "languages": ["English", "Chinese", "Malay"],
     "visibleSections": {
