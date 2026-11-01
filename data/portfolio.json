@@ -88,7 +88,7 @@
   "resume": {
     "name": "Ryan Loo Tuck Fatt",
     "title": "Full Stack Developer & AI Enthusiast",
-    "profile": "AI-focused software engineer who turns business requirements into production systems, combining LLMs and agentic workflows with full-stack engineering and deterministic logic. Experienced in building AI-powered automation, from LLM-driven reporting to multilingual semantic matching, and in shipping products from spec to deployment.",
+    "profile": "AI-focused software engineer who turns business requirements into production systems, combining LLMs and agentic workflows with full-stack engineering and deterministic logic. Experienced in building AI-powered automation, from LLM–driven reporting to multilingual semantic matching, and in shipping products from spec to deployment.",
     "contact": {
       "email": "ryanlootf6@gmail.com",
       "phone": "(+60) 17-2533 961"
@@ -110,14 +110,14 @@
     "experience": [{
       "role": "AI Native Software Developer",
       "company": "Thousands Of Years Media",
-      "duration": "2026 - Present",
+      "duration": "2026 – Present",
       "description": "",
       "highlights": ["Built an AI-powered employee reporting system, reducing estimated management review time from 2 hours to 10 minutes.", "Integrated Gemini and Google Workspace into the reporting system for automated task extraction, target matching and progress summaries.", "Engineered multilingual semantic duplicate detection, achieving approximately 90% benchmark accuracy and reducing investigation time from 30 to 3 minutes daily.", "Optimized the detection pipeline through custom tokenization and embedding inference in PHP, reducing model size by 87% without external AI APIs."],
       "tech": []
     }, {
       "role": "Independent Learning & Product Development",
       "company": "",
-      "duration": "2024 - 2026",
+      "duration": "2024 – 2026",
       "description": "Focused on AI technologies, software architecture, and modern development workflows through self-directed learning, experimentation, and product development.",
       "highlights": ["Independently designed, built, and shipped multiple full-stack web products from concept to production", "Developed AI-integrated applications leveraging LLM APIs", "Explored agentic AI workflows and modern AI frameworks through hands-on experimentation and product development"],
       "tech": []
@@ -136,7 +136,7 @@
       "achievements": ["Honours Degree with Distinction (CGPA: 3.79)", "President's List (2 semesters), Dean's List (4 semesters)"]
     }],
     "technicalSkills": ["Python", "React", "Next.js", "OpenAI API", "AI Agents", "AI-Assisted Development", "Linux", "Docker", "JavaScript", "TypeScript", "PostgreSQL", "Claude Code", "MCP", "Semantic Search"],
-    "certifications": ["AZ-900: Microsoft Azure Fundamentals | Microsoft, Jun 2022", "Agentic AI Certified Foundations Associate | Oracle, Aug 2026"],
+    "certifications": ["AZ-900: Microsoft Azure Fundamentals | Microsoft, Jun 2022", "• Agentic AI Certified Foundations Associate | Oracle, Aug 2026"],
     "languages": ["English", "Chinese", "Malay"],
     "visibleSections": {
       "profile": true,
