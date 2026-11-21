@@ -38,7 +38,7 @@
     "description": "Investor-focused platform aggregating AGM/EGM meeting information for Bursa Malaysia shareholders with portfolio-aware filtering and responsive calendar views.",
     "highlights": ["Automated AGM/EGM data updates", "Responsive calendar dashboard views", "Bursa Malaysia stock search", "Portfolio-based meeting filtering", "Google OAuth authentication", "Hybrid meeting link integration"],
     "tech": ["Next.js", "Tailwind CSS", "Supabase", "PostgreSQL", "Python", "Vercel", "OAuth"],
-    "featured": true,
+    "featured": false,
     "links": {
       "live": "https://agm-tracker-site.vercel.app/",
       "github": null
@@ -49,7 +49,7 @@
     "description": "AI-powered productivity platform transforming goals into actionable quests through structured progression systems and personalized rewards.",
     "highlights": ["AI-powered quest generation", "Server-side data synchronization", "Google OAuth authentication", "Quest and reward management", "Responsive dashboard and progress analytics"],
     "tech": ["Next.js", "Tailwind CSS", "Supabase", "PostgreSQL", "Vercel", "OAuth", "OpenAI API"],
-    "featured": true,
+    "featured": false,
     "links": {
       "live": "https://enrich-rpg.vercel.app/",
       "github": null
@@ -61,6 +61,17 @@
     "highlights": ["AI-powered contextual navigation", "Dynamic content-driven architecture", "Centralized portfolio management", "Admin dashboard content editing", "Structured AI response workflows"],
     "tech": ["Next.js", "Tailwind CSS", "JSON", "Vercel", "OpenAI API"],
     "featured": false,
+    "links": {
+      "live": null,
+      "github": null
+    }
+  }, {
+    "title": "AI Daily Reporting & Summarization System",
+    "tagline": " Designed and built an end-to-end AI reporting system — from form to LLM pipeline to executive dashboard — replacing manual daily consolidation.",
+    "description": "An end-to-end AI reporting pipeline that collects daily work logs, uses an LLM to extract tasks and match them against monthly targets, then generates exception-first summaries for leads and executives — with every AI claim verified in code.",
+    "highlights": ["End-to-end ownership: form → LLM pipeline → executive dashboard", "LLM task extraction, target matching and daily summarization", "Schema-validated output with in-code anti-hallucination guards", "Schema-validated output with in-code anti-hallucination guards", "Model fallback, retries and backoff for reliable calls", "Multi-source data integration (reports + sales figure", "Seeded end-to-end evaluation harness"],
+    "tech": ["Gemini", "Google Apps Script", "Google Workspace", "Node.js", "JavaScript"],
+    "featured": true,
     "links": {
       "live": null,
       "github": null
