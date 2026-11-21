@@ -33,6 +33,28 @@
     "tech": ["Gemini", "Google Workspace", "PHP", "Laravel", "Vector Embeddings", "Semantic Search"]
   }],
   "projects": [{
+    "title": "AI Daily Reporting & Summarization System",
+    "tagline": " AI Powered Daily Reporting System",
+    "description": "An end-to-end AI reporting pipeline that collects daily work logs, uses an LLM to extract tasks and match them against monthly targets, then generates exception-first summaries for leads and executives — with every AI claim verified in code.",
+    "highlights": ["End-to-end ownership: form → LLM pipeline → executive dashboard", "LLM task extraction, target matching and daily summarization", "Schema-validated output with in-code anti-hallucination guards", "Schema-validated output with in-code anti-hallucination guards", "Model fallback, retries and backoff for reliable calls", "Multi-source data integration (reports + sales figure", "Seeded end-to-end evaluation harness"],
+    "tech": ["Gemini", "Google Apps Script", "Google Workspace", "Node.js", "JavaScript"],
+    "featured": true,
+    "links": {
+      "live": null,
+      "github": null
+    }
+  }, {
+    "title": "Multilingual Semantic Duplicate Detection",
+    "tagline": "Vector search feature on feedback site that flags duplicate posts across three languages",
+    "description": "A self-contained duplicate-detection system using static multilingual embeddings and cosine similarity, running entirely on a PHP backend with no external AI API or vector database.",
+    "highlights": ["Static multilingual embeddings (51 languages) with a hand-ported WordPiece tokenizer", "IDF weighting + language mean subtraction to boost match precision", "Cosine scoring with a dual-threshold flag rule (precision over recall)", "Model compressed 416MB → 54MB (87%) without accuracy loss to fit limited storage", "Admin review workflow: system flags are suggestions, admins decide", "Benchmark-evaluated: ~90% top-1 accuracy vs 41% keyword baseline"],
+    "tech": ["PHP", "Laravel", "Embeddings", "Vector Search", "MySQL"],
+    "featured": true,
+    "links": {
+      "live": "https://similarity-lab.onrender.com/",
+      "github": "https://github.com/ryanlootftf/similarity-lab"
+    }
+  }, {
     "title": "AGM Meeting Tracker",
     "tagline": "AGM/EGM Tracking Platform",
     "description": "Investor-focused platform aggregating AGM/EGM meeting information for Bursa Malaysia shareholders with portfolio-aware filtering and responsive calendar views.",
@@ -61,17 +83,6 @@
     "highlights": ["AI-powered contextual navigation", "Dynamic content-driven architecture", "Centralized portfolio management", "Admin dashboard content editing", "Structured AI response workflows"],
     "tech": ["Next.js", "Tailwind CSS", "JSON", "Vercel", "OpenAI API"],
     "featured": false,
-    "links": {
-      "live": null,
-      "github": null
-    }
-  }, {
-    "title": "AI Daily Reporting & Summarization System",
-    "tagline": " Designed and built an end-to-end AI reporting system — from form to LLM pipeline to executive dashboard — replacing manual daily consolidation.",
-    "description": "An end-to-end AI reporting pipeline that collects daily work logs, uses an LLM to extract tasks and match them against monthly targets, then generates exception-first summaries for leads and executives — with every AI claim verified in code.",
-    "highlights": ["End-to-end ownership: form → LLM pipeline → executive dashboard", "LLM task extraction, target matching and daily summarization", "Schema-validated output with in-code anti-hallucination guards", "Schema-validated output with in-code anti-hallucination guards", "Model fallback, retries and backoff for reliable calls", "Multi-source data integration (reports + sales figure", "Seeded end-to-end evaluation harness"],
-    "tech": ["Gemini", "Google Apps Script", "Google Workspace", "Node.js", "JavaScript"],
-    "featured": true,
     "links": {
       "live": null,
       "github": null
